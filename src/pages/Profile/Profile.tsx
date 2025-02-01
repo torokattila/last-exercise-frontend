@@ -1,19 +1,18 @@
 import useProfile from '../../hooks/useProfile';
 
-import eyeOutline from '@iconify/icons-eva/eye-outline';
-import emailOutline from '@iconify/icons-eva/email-outline';
-import lockOutline from '@iconify/icons-eva/lock-outline';
-import eyeOffOutline from '@iconify/icons-eva/eye-off-outline';
-import personOutline from '@iconify/icons-eva/person-outline';
-import personAddOutline from '@iconify/icons-eva/person-add-outline';
-import shieldOutline from '@iconify/icons-eva/shield-outline';
 import alertTriangleOutline from '@iconify/icons-eva/alert-triangle-outline';
+import emailOutline from '@iconify/icons-eva/email-outline';
+import eyeOffOutline from '@iconify/icons-eva/eye-off-outline';
+import eyeOutline from '@iconify/icons-eva/eye-outline';
+import lockOutline from '@iconify/icons-eva/lock-outline';
+import personAddOutline from '@iconify/icons-eva/person-add-outline';
+import personOutline from '@iconify/icons-eva/person-outline';
+import shieldOutline from '@iconify/icons-eva/shield-outline';
 import { Icon } from '@iconify/react';
 import classNames from 'classnames';
 
 const Profile = () => {
   const {
-    user,
     email,
     setEmail,
     firstname,
