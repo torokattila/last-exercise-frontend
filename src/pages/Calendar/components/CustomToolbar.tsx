@@ -12,19 +12,19 @@ const CustomToolbar = ({
       <span className="text-2xl font-bold">{label}</span>
       <div className="mt-3 flex flex-row gap-x-1">
         <button
-          className="rounded-xl bg-white px-3 py-1 text-lg font-bold uppercase text-[#4A9ECB] shadow-2xl dark:bg-[#38383a] dark:text-[#fff]"
+          className="rounded-xl bg-white dark:bg-[#38383a] px-3 py-1 text-lg font-bold text-[#4A9ECB] dark:text-[#fff] shadow-2xl uppercase"
           onClick={() => onNavigate('TODAY')}
         >
           Today
         </button>
         <button
-          className="rounded-xl bg-white px-3 py-1 text-lg font-bold uppercase text-[#4A9ECB] shadow-2xl dark:bg-[#38383a] dark:text-[#fff]"
+          className="rounded-xl bg-white dark:bg-[#38383a] px-3 py-1 text-lg font-bold text-[#4A9ECB] dark:text-[#fff] shadow-2xl uppercase"
           onClick={() => onNavigate('PREV')}
         >
           Back
         </button>
         <button
-          className="rounded-xl bg-white px-3 py-1 text-lg font-bold uppercase text-[#4A9ECB] shadow-2xl dark:bg-[#38383a] dark:text-[#fff]"
+          className="rounded-xl bg-white dark:bg-[#38383a] px-3 py-1 text-lg font-bold text-[#4A9ECB] dark:text-[#fff] shadow-2xl uppercase"
           onClick={() => onNavigate('NEXT')}
         >
           Next
