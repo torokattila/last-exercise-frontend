@@ -3,13 +3,12 @@ import { useEffect, useState } from 'react';
 import { HexColorPicker } from 'react-colorful';
 import useHome from '../../hooks/useHome';
 import ExerciseType from '../../models/ExerciseType';
-import { ExerciseTypeCardColorOpen } from '../../@types/ExerciseTypeCardColorOpen';
 
-import { Icon } from '@iconify/react';
 import saveOutline from '@iconify/icons-eva/save-outline';
-import trash2Fill from '@iconify/icons-eva/trash-2-fill';
+import { Icon } from '@iconify/react';
 import useExercise from '../../hooks/useExercise';
 import ExercisePayload from '../../api/payloads/ExercisePayload';
+import ExerciseTypeAccordionCard from '../../components/ExerciseTypeAccordionCard';
 
 const AddExercise = () => {
   const { user } = useHome();
@@ -18,12 +17,16 @@ const AddExercise = () => {
     useState<boolean>(false);
   const [openExerciseTextColorPicker, setOpenExerciseTextColorPicker] =
     useState<boolean>(false);
-  const [openExerciseTypeCardColorPicker, setOpenExerciseTypeCardColorPicker] =
-    useState<ExerciseTypeCardColorOpen[]>([]);
-  const [
-    openExerciseTypeCardTextColorPicker,
-    setOpenExerciseTypeCardTextColorPicker,
-  ] = useState<ExerciseTypeCardColorOpen[]>([]);
+
+  const [openAccordions, setOpenAccordions] = useState<boolean[]>([]);
+
+  const toggleAccordion = (index: number) => {
+    setOpenAccordions((prev) => {
+      const next = [...prev];
+      next[index] = !next[index];
+      return next;
+    });
+  };
 
   const [exercise, setExercise] = useState<ExercisePayload>({
     name: '',
@@ -49,52 +52,22 @@ const AddExercise = () => {
     };
     types.push(newExerciseType);
     setExercise({ ...exercise, exerciseTypes: types });
-    setOpenExerciseTypeCardColorPicker([
-      ...openExerciseTypeCardColorPicker,
-      {
-        index:
-          openExerciseTypeCardColorPicker[
-            openExerciseTypeCardColorPicker.length - 1
-          ].index + 1,
-        isOpen: false,
-      },
-    ]);
+    setOpenAccordions((prev) => [...prev.map(() => false), true]);
   };
 
-  const handleDeleteType = (type: Partial<ExerciseType>, index: number) => {
-    let currentExerciseTypes = [...exercise.exerciseTypes];
-    currentExerciseTypes = currentExerciseTypes.filter(
-      (exType, innerIndex: number) => innerIndex !== index,
+  const handleDeleteType = (index: number) => {
+    const currentExerciseTypes = exercise.exerciseTypes.filter(
+      (_, i) => i !== index,
     );
     setExercise({ ...exercise, exerciseTypes: currentExerciseTypes });
+    setOpenAccordions((prev) => prev.filter((_, i) => i !== index));
   };
 
   useEffect(() => {
-    if (exercise.exerciseTypes.length > 0) {
-      const initialOpenExerciseTypeCardColorValues: ExerciseTypeCardColorOpen[] =
-        [];
-      const initialOpenExerciseTypeCardTextColorValues: ExerciseTypeCardColorOpen[] =
-        [];
-      const length = exercise.exerciseTypes.length;
-
-      for (let i = 0; i < length; i++) {
-        initialOpenExerciseTypeCardColorValues.push({
-          index: i,
-          isOpen: false,
-        });
-        initialOpenExerciseTypeCardTextColorValues.push({
-          index: i,
-          isOpen: false,
-        });
-      }
-
-      setOpenExerciseTypeCardColorPicker(
-        initialOpenExerciseTypeCardColorValues,
-      );
-      setOpenExerciseTypeCardTextColorPicker(
-        initialOpenExerciseTypeCardTextColorValues,
-      );
-    }
+    setOpenAccordions((prev) =>
+      prev.length === 0 ? exercise.exerciseTypes.map(() => false) : prev,
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exercise.exerciseTypes.length]);
 
   useEffect(() => {
@@ -322,412 +295,24 @@ const AddExercise = () => {
                 <div className="mt-2 flex flex-col gap-y-2">
                   {exercise.exerciseTypes.length > 0 &&
                     exercise.exerciseTypes.map((type, index: number) => (
-                      <motion.div
+                      <ExerciseTypeAccordionCard
                         key={`${index}_${type.id}`}
-                        style={{
-                          backgroundColor:
-                            exercise.exerciseTypes[index].seriesCardsColor,
-                        }}
-                        className="flex flex-col gap-y-3 rounded-2xl p-2 shadow-card"
-                        initial={{
-                          scale: 0,
-                        }}
-                        animate={{
-                          scale: 1,
-                        }}
-                        exit={{
-                          scale: 0,
-                        }}
-                        transition={{
-                          duration: 0.4,
-                          type: 'spring',
-                        }}
-                      >
-                        <div className="flex flex-col gap-y-1">
-                          <label
-                            style={{
-                              color:
-                                exercise.exerciseTypes[index].cardTextColor,
-                            }}
-                            className="font-medium"
-                          >
-                            Name:
-                          </label>
-                          <input
-                            className="w-full rounded-full border-2 bg-white py-1.5 px-3 outline-none transition-all focus:shadow-card dark:bg-[#28282B] dark:text-white"
-                            type="text"
-                            value={type.name}
-                            onChange={(e) => {
-                              setExercise({
-                                ...exercise,
-                                exerciseTypes: [
-                                  ...exercise.exerciseTypes.slice(0, index),
-                                  {
-                                    ...exercise.exerciseTypes[index],
-                                    name: e.target.value,
-                                  },
-                                  ...exercise.exerciseTypes.slice(index + 1),
-                                ],
-                              });
-                            }}
-                          />
-                        </div>
-
-                        <div className="flex flex-col gap-y-1">
-                          <label
-                            style={{
-                              color:
-                                exercise.exerciseTypes[index].cardTextColor,
-                            }}
-                            className="font-medium"
-                          >
-                            Order on the Exercise page:
-                          </label>
-                          <input
-                            value={type.order}
-                            type="number"
-                            className="w-full rounded-full border-2 bg-white py-1.5 px-3 outline-none transition-all focus:shadow-card dark:bg-[#28282B] dark:text-white"
-                            onChange={(e) => {
-                              setExercise({
-                                ...exercise,
-                                exerciseTypes: [
-                                  ...exercise.exerciseTypes.slice(0, index),
-                                  {
-                                    ...exercise.exerciseTypes[index],
-                                    order: Number(e.target.value),
-                                  },
-                                  ...exercise.exerciseTypes.slice(index + 1),
-                                ],
-                              });
-                            }}
-                          />
-                        </div>
-
-                        <div className="flex flex-col gap-y-1">
-                          <label
-                            style={{
-                              color:
-                                exercise.exerciseTypes[index].cardTextColor,
-                            }}
-                            className="font-medium"
-                          >
-                            Number of series card:
-                          </label>
-                          <input
-                            value={Number(type.seriesCardNumber)}
-                            type="number"
-                            className="w-full rounded-full border-2 bg-white py-1.5 px-3 outline-none transition-all focus:shadow-card dark:bg-[#28282B] dark:text-white"
-                            onChange={(e) => {
-                              setExercise({
-                                ...exercise,
-                                exerciseTypes: [
-                                  ...exercise.exerciseTypes.slice(0, index),
-                                  {
-                                    ...exercise.exerciseTypes[index],
-                                    seriesCardNumber: Number(e.target.value),
-                                  },
-                                  ...exercise.exerciseTypes.slice(index + 1),
-                                ],
-                              });
-                            }}
-                          />
-                        </div>
-
-                        <div className="flex flex-col gap-y-1">
-                          <label
-                            style={{
-                              color:
-                                exercise.exerciseTypes[index].cardTextColor,
-                            }}
-                            className="font-medium"
-                          >
-                            Number of repetitions:
-                          </label>
-                          <input
-                            value={Number(type.numberOfRepetitions)}
-                            type="number"
-                            className="w-full rounded-full border-2 bg-white py-1.5 px-3 outline-none transition-all focus:shadow-card dark:bg-[#28282B] dark:text-white"
-                            onChange={(e) => {
-                              setExercise({
-                                ...exercise,
-                                exerciseTypes: [
-                                  ...exercise.exerciseTypes.slice(0, index),
-                                  {
-                                    ...exercise.exerciseTypes[index],
-                                    numberOfRepetitions: Number(e.target.value),
-                                  },
-                                  ...exercise.exerciseTypes.slice(index + 1),
-                                ],
-                              });
-                            }}
-                          />
-                        </div>
-
-                        <div className="flex flex-col gap-y-1">
-                          <label
-                            style={{
-                              color:
-                                exercise.exerciseTypes[index].cardTextColor,
-                            }}
-                            className="font-medium"
-                          >
-                            Color of the series cards:
-                          </label>
-
-                          {openExerciseTypeCardColorPicker[index] &&
-                            !openExerciseTypeCardColorPicker[index].isOpen && (
-                              <motion.div
-                                initial={{
-                                  scale: 0,
-                                }}
-                                animate={{
-                                  scale: 1,
-                                }}
-                                exit={{
-                                  scale: 0,
-                                }}
-                                transition={{
-                                  duration: 0.4,
-                                  type: 'spring',
-                                }}
-                                className="mt-1 h-5 w-12 cursor-pointer rounded-lg shadow-card"
-                                onClick={() =>
-                                  setOpenExerciseTypeCardColorPicker([
-                                    ...openExerciseTypeCardColorPicker.slice(
-                                      0,
-                                      index,
-                                    ),
-                                    {
-                                      ...openExerciseTypeCardColorPicker[index],
-                                      isOpen:
-                                        !openExerciseTypeCardColorPicker[index]
-                                          .isOpen,
-                                    },
-                                    ...openExerciseTypeCardColorPicker.slice(
-                                      index + 1,
-                                    ),
-                                  ])
-                                }
-                                style={{
-                                  backgroundColor:
-                                    exercise.exerciseTypes[index]
-                                      .seriesCardsColor,
-                                }}
-                              />
-                            )}
-                          {openExerciseTypeCardColorPicker[index] &&
-                            openExerciseTypeCardColorPicker[index].isOpen && (
-                              <motion.div
-                                initial={{
-                                  scale: 0,
-                                }}
-                                animate={{
-                                  scale: 1,
-                                }}
-                                exit={{
-                                  scale: 0,
-                                }}
-                                transition={{
-                                  duration: 0.4,
-                                  type: 'spring',
-                                }}
-                                className="mt-2 flex flex-row gap-x-3"
-                              >
-                                <HexColorPicker
-                                  className="rounded-3xl shadow-card"
-                                  color={
-                                    exercise.exerciseTypes[index]
-                                      .seriesCardsColor
-                                  }
-                                  onChange={(value) => {
-                                    setExercise({
-                                      ...exercise,
-                                      exerciseTypes: [
-                                        ...exercise.exerciseTypes.slice(
-                                          0,
-                                          index,
-                                        ),
-                                        {
-                                          ...exercise.exerciseTypes[index],
-                                          seriesCardsColor: value,
-                                        },
-                                        ...exercise.exerciseTypes.slice(
-                                          index + 1,
-                                        ),
-                                      ],
-                                    });
-                                  }}
-                                />
-
-                                <div
-                                  className="cursor-pointer self-end rounded-full bg-white p-1 shadow-card transition-all hover:bg-gray-50"
-                                  onClick={() =>
-                                    setOpenExerciseTypeCardColorPicker([
-                                      ...openExerciseTypeCardColorPicker.slice(
-                                        0,
-                                        index,
-                                      ),
-                                      {
-                                        ...openExerciseTypeCardColorPicker[
-                                          index
-                                        ],
-                                        isOpen: false,
-                                      },
-                                      ...openExerciseTypeCardColorPicker.slice(
-                                        index + 1,
-                                      ),
-                                    ])
-                                  }
-                                >
-                                  <Icon
-                                    icon={saveOutline}
-                                    fontSize={30}
-                                    className="text-green-700"
-                                  />
-                                </div>
-                              </motion.div>
-                            )}
-                        </div>
-
-                        <div className="flex flex-col gap-y-1">
-                          <label
-                            style={{
-                              color:
-                                exercise.exerciseTypes[index].cardTextColor,
-                            }}
-                            className="font-medium"
-                          >
-                            Series card text color:
-                          </label>
-
-                          {openExerciseTypeCardTextColorPicker[index] &&
-                            !openExerciseTypeCardTextColorPicker[index]
-                              .isOpen && (
-                              <motion.div
-                                initial={{
-                                  scale: 0,
-                                }}
-                                animate={{
-                                  scale: 1,
-                                }}
-                                exit={{
-                                  scale: 0,
-                                }}
-                                transition={{
-                                  duration: 0.4,
-                                  type: 'spring',
-                                }}
-                                className="mt-1 h-5 w-12 cursor-pointer rounded-lg shadow-card"
-                                onClick={() =>
-                                  setOpenExerciseTypeCardTextColorPicker([
-                                    ...openExerciseTypeCardTextColorPicker.slice(
-                                      0,
-                                      index,
-                                    ),
-                                    {
-                                      ...openExerciseTypeCardTextColorPicker[
-                                        index
-                                      ],
-                                      isOpen:
-                                        !openExerciseTypeCardTextColorPicker[
-                                          index
-                                        ].isOpen,
-                                    },
-                                    ...openExerciseTypeCardTextColorPicker.slice(
-                                      index + 1,
-                                    ),
-                                  ])
-                                }
-                                style={{
-                                  backgroundColor:
-                                    exercise.exerciseTypes[index].cardTextColor,
-                                }}
-                              />
-                            )}
-                          {openExerciseTypeCardTextColorPicker[index] &&
-                            openExerciseTypeCardTextColorPicker[index]
-                              .isOpen && (
-                              <motion.div
-                                initial={{
-                                  scale: 0,
-                                }}
-                                animate={{
-                                  scale: 1,
-                                }}
-                                exit={{
-                                  scale: 0,
-                                }}
-                                transition={{
-                                  duration: 0.4,
-                                  type: 'spring',
-                                }}
-                                className="mt-2 flex flex-row gap-x-3"
-                              >
-                                <HexColorPicker
-                                  className="rounded-3xl shadow-card"
-                                  color={
-                                    exercise.exerciseTypes[index].cardTextColor
-                                  }
-                                  onChange={(value) => {
-                                    setExercise({
-                                      ...exercise,
-                                      exerciseTypes: [
-                                        ...exercise.exerciseTypes.slice(
-                                          0,
-                                          index,
-                                        ),
-                                        {
-                                          ...exercise.exerciseTypes[index],
-                                          cardTextColor: value,
-                                        },
-                                        ...exercise.exerciseTypes.slice(
-                                          index + 1,
-                                        ),
-                                      ],
-                                    });
-                                  }}
-                                />
-
-                                <div
-                                  className="cursor-pointer self-end rounded-full bg-white p-1 shadow-card transition-all hover:bg-gray-50"
-                                  onClick={() =>
-                                    setOpenExerciseTypeCardTextColorPicker([
-                                      ...openExerciseTypeCardTextColorPicker.slice(
-                                        0,
-                                        index,
-                                      ),
-                                      {
-                                        ...openExerciseTypeCardTextColorPicker[
-                                          index
-                                        ],
-                                        isOpen: false,
-                                      },
-                                      ...openExerciseTypeCardTextColorPicker.slice(
-                                        index + 1,
-                                      ),
-                                    ])
-                                  }
-                                >
-                                  <Icon
-                                    icon={saveOutline}
-                                    fontSize={30}
-                                    className="text-green-700"
-                                  />
-                                </div>
-                              </motion.div>
-                            )}
-                        </div>
-
-                        <div
-                          onClick={() => handleDeleteType(type, index)}
-                          className="cursor-pointer self-end rounded-full bg-red-700 p-2 shadow-card transition-all hover:bg-red-800"
-                        >
-                          <Icon
-                            icon={trash2Fill}
-                            className="text-xl text-white"
-                          />
-                        </div>
-                      </motion.div>
+                        type={type}
+                        index={index}
+                        isOpen={!!openAccordions[index]}
+                        onToggle={() => toggleAccordion(index)}
+                        onChange={(updated) =>
+                          setExercise({
+                            ...exercise,
+                            exerciseTypes: [
+                              ...exercise.exerciseTypes.slice(0, index),
+                              updated,
+                              ...exercise.exerciseTypes.slice(index + 1),
+                            ],
+                          })
+                        }
+                        onDelete={() => handleDeleteType(index)}
+                      />
                     ))}
                 </div>
               )}
