@@ -64,7 +64,7 @@ const AddExercise = () => {
   const handleDeleteType = (type: Partial<ExerciseType>, index: number) => {
     let currentExerciseTypes = [...exercise.exerciseTypes];
     currentExerciseTypes = currentExerciseTypes.filter(
-      (exType, innerIndex: number) => innerIndex !== index
+      (exType, innerIndex: number) => innerIndex !== index,
     );
     setExercise({ ...exercise, exerciseTypes: currentExerciseTypes });
   };
@@ -89,10 +89,10 @@ const AddExercise = () => {
       }
 
       setOpenExerciseTypeCardColorPicker(
-        initialOpenExerciseTypeCardColorValues
+        initialOpenExerciseTypeCardColorValues,
       );
       setOpenExerciseTypeCardTextColorPicker(
-        initialOpenExerciseTypeCardTextColorValues
+        initialOpenExerciseTypeCardTextColorValues,
       );
     }
   }, [exercise.exerciseTypes.length]);
@@ -131,9 +131,9 @@ const AddExercise = () => {
                   backgroundColor: exercise.cardColor,
                   color: exercise.textColor,
                 }}
-                className="rounded-full px-3 py-2 uppercase shadow-card transition-all hover:opacity-90"
+                className="rounded-full px-2 py-2 uppercase shadow-card transition-all hover:opacity-90"
               >
-                create
+                <Icon icon={saveOutline} fontSize={30} className="text-white" />
               </button>
             </div>
             <div className="flex flex-col py-2 lg:flex-row lg:gap-x-4">
@@ -160,7 +160,7 @@ const AddExercise = () => {
                     className="mt-2 h-5 w-12 cursor-pointer rounded-lg shadow-card"
                     onClick={() =>
                       setOpenExeriseCardColorPicker(
-                        !openExerciseCardColorPicker
+                        !openExerciseCardColorPicker,
                       )
                     }
                     style={{
@@ -229,7 +229,7 @@ const AddExercise = () => {
                     className="mt-2 h-5 w-12 cursor-pointer rounded-lg shadow-card"
                     onClick={() =>
                       setOpenExerciseTextColorPicker(
-                        !openExerciseTextColorPicker
+                        !openExerciseTextColorPicker,
                       )
                     }
                     style={{
@@ -495,7 +495,7 @@ const AddExercise = () => {
                                   setOpenExerciseTypeCardColorPicker([
                                     ...openExerciseTypeCardColorPicker.slice(
                                       0,
-                                      index
+                                      index,
                                     ),
                                     {
                                       ...openExerciseTypeCardColorPicker[index],
@@ -504,7 +504,7 @@ const AddExercise = () => {
                                           .isOpen,
                                     },
                                     ...openExerciseTypeCardColorPicker.slice(
-                                      index + 1
+                                      index + 1,
                                     ),
                                   ])
                                 }
@@ -545,14 +545,14 @@ const AddExercise = () => {
                                       exerciseTypes: [
                                         ...exercise.exerciseTypes.slice(
                                           0,
-                                          index
+                                          index,
                                         ),
                                         {
                                           ...exercise.exerciseTypes[index],
                                           seriesCardsColor: value,
                                         },
                                         ...exercise.exerciseTypes.slice(
-                                          index + 1
+                                          index + 1,
                                         ),
                                       ],
                                     });
@@ -565,7 +565,7 @@ const AddExercise = () => {
                                     setOpenExerciseTypeCardColorPicker([
                                       ...openExerciseTypeCardColorPicker.slice(
                                         0,
-                                        index
+                                        index,
                                       ),
                                       {
                                         ...openExerciseTypeCardColorPicker[
@@ -574,7 +574,7 @@ const AddExercise = () => {
                                         isOpen: false,
                                       },
                                       ...openExerciseTypeCardColorPicker.slice(
-                                        index + 1
+                                        index + 1,
                                       ),
                                     ])
                                   }
@@ -622,7 +622,7 @@ const AddExercise = () => {
                                   setOpenExerciseTypeCardTextColorPicker([
                                     ...openExerciseTypeCardTextColorPicker.slice(
                                       0,
-                                      index
+                                      index,
                                     ),
                                     {
                                       ...openExerciseTypeCardTextColorPicker[
@@ -634,7 +634,7 @@ const AddExercise = () => {
                                         ].isOpen,
                                     },
                                     ...openExerciseTypeCardTextColorPicker.slice(
-                                      index + 1
+                                      index + 1,
                                     ),
                                   ])
                                 }
@@ -674,14 +674,14 @@ const AddExercise = () => {
                                       exerciseTypes: [
                                         ...exercise.exerciseTypes.slice(
                                           0,
-                                          index
+                                          index,
                                         ),
                                         {
                                           ...exercise.exerciseTypes[index],
                                           cardTextColor: value,
                                         },
                                         ...exercise.exerciseTypes.slice(
-                                          index + 1
+                                          index + 1,
                                         ),
                                       ],
                                     });
@@ -694,7 +694,7 @@ const AddExercise = () => {
                                     setOpenExerciseTypeCardTextColorPicker([
                                       ...openExerciseTypeCardTextColorPicker.slice(
                                         0,
-                                        index
+                                        index,
                                       ),
                                       {
                                         ...openExerciseTypeCardTextColorPicker[
@@ -703,7 +703,7 @@ const AddExercise = () => {
                                         isOpen: false,
                                       },
                                       ...openExerciseTypeCardTextColorPicker.slice(
-                                        index + 1
+                                        index + 1,
                                       ),
                                     ])
                                   }
@@ -733,7 +733,7 @@ const AddExercise = () => {
               )}
             </div>
 
-            <div className="self-end">
+            <div className="self-center">
               <button
                 style={{
                   backgroundColor: exercise.cardColor,
