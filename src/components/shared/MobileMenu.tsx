@@ -25,7 +25,7 @@ const MobileMenu = () => {
       }}
       className={`
         fixed bottom-1.5 left-1/2 z-20 flex h-8 w-[75%] flex-row items-center
-        justify-evenly rounded-full bg-white shadow-top dark:bg-[#2A2E37] 
+        justify-evenly rounded-full bg-white/80 shadow-top backdrop-blur-md dark:bg-[#2A2E37]/80
         lg:hidden
       `}
     >
