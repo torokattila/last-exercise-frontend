@@ -137,7 +137,7 @@ const EditExercise = () => {
                 <Icon
                   icon={moreVerticalFill}
                   fontSize={30}
-                  className="text-gray-700 dark:text-white"
+                  className="text-white"
                 />
               </button>
               <AnimatePresence>
