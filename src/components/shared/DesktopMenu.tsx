@@ -1,6 +1,5 @@
 import { Tooltip } from '@mui/material';
 import classNames from 'classnames';
-import DarkModeSwitch from '../DarkModeSwitch';
 
 import homeFill from '@iconify/icons-eva/home-fill';
 import personFill from '@iconify/icons-eva/person-fill';
@@ -17,7 +16,7 @@ const DesktopMenu = () => {
   } = useMenu();
 
   return (
-    <div className="fixed hidden h-screen w-12 flex-col items-center bg-white shadow-xl dark:bg-[#28282B] lg:flex">
+    <div className="fixed hidden h-screen w-12 flex-col items-center bg-white shadow-xl dark:bg-[#1D2228] lg:flex">
       <div
         className="mt-3 cursor-pointer"
         onClick={() => {
@@ -80,11 +79,7 @@ const DesktopMenu = () => {
           </div>
         </Tooltip>
 
-        <Tooltip title="Switch color mode" arrow placement="right">
-          <div className="p-1.5">
-            <DarkModeSwitch />
-          </div>
-        </Tooltip>
+
       </div>
     </div>
   );

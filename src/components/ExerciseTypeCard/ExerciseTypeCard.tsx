@@ -36,14 +36,14 @@ const ExerciseTypeCard = ({ exerciseType }: Props) => {
   }, [exerciseType]);
 
   useEffect(() => {
-    const storedCards = getItem(`cards_${exerciseType.name}`);
+    const storedCards = getItem(`cards_${exerciseType.id}`);
     if (!storedCards) {
-      setItem(`cards_${exerciseType.name}`, JSON.stringify(cards));
+      setItem(`cards_${exerciseType.id}`, JSON.stringify(cards));
     }
   }, [cards, exerciseType.name]);
 
   const [dynamicCards, setDynamicCards] = useState<Card[]>(() => {
-    const storedDeletedCards = getItem(`deletedCards_${exerciseType.name}`);
+    const storedDeletedCards = getItem(`deletedCards_${exerciseType.id}`);
     if (storedDeletedCards) {
       const deletedCardIds = JSON.parse(storedDeletedCards);
       return cards.filter((card) => !deletedCardIds.includes(card.id));
@@ -63,17 +63,17 @@ const ExerciseTypeCard = ({ exerciseType }: Props) => {
   }, [dynamicCards, cards]);
 
   const updateDeletedCardsInStorage = (deletedCardId: string) => {
-    const storedDeletedCards = getItem(`deletedCards_${exerciseType.name}`);
+    const storedDeletedCards = getItem(`deletedCards_${exerciseType.id}`);
     const currentDeletedCardIds = storedDeletedCards
       ? JSON.parse(storedDeletedCards)
       : [];
     const updatedDeletedCardIds = Array.from(
-      new Set([...currentDeletedCardIds, deletedCardId])
+      new Set([...currentDeletedCardIds, deletedCardId]),
     );
 
     setItem(
-      `deletedCards_${exerciseType.name}`,
-      JSON.stringify(updatedDeletedCardIds)
+      `deletedCards_${exerciseType.id}`,
+      JSON.stringify(updatedDeletedCardIds),
     );
   };
 

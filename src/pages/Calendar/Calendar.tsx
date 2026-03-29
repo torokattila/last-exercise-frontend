@@ -49,7 +49,7 @@ const eventStyleGetter = (
   event: CalendarEvent,
   start: Date,
   end: Date,
-  isSelected: boolean
+  isSelected: boolean,
 ) => {
   return {
     style: {
@@ -84,7 +84,7 @@ const CalendarPage = () => {
         isWithinInterval(new Date(history.date), {
           start: weekStart,
           end: weekEnd,
-        })
+        }),
       ).length ?? 0
     );
   }, [user?.exerciseHistory]);
@@ -98,7 +98,7 @@ const CalendarPage = () => {
         isWithinInterval(new Date(history.date), {
           start: monthStart,
           end: monthEnd,
-        })
+        }),
       ).length ?? 0
     );
   }, [user?.exerciseHistory]);
@@ -107,11 +107,20 @@ const CalendarPage = () => {
     confirmAlert({
       customUI: ({ onClose }: { onClose: () => void }) => {
         return (
-          <ConfirmAlertLayout classNames="w-[80%] rounded-3xl h-24 p-2 bg-[#3c3c3c]">
+          <ConfirmAlertLayout
+            classNames="w-[80%] rounded-3xl h-24 p-2"
+            style={{
+              backgroundColor: event.cardColor,
+            }}
+          >
             <div>
               <div className="flex justify-end gap-2">
                 <button
-                  className="rounded-full border-4 border-white bg-transparent p-1 text-sm font-semibold text-gray-800"
+                  className={`
+                    rounded-full border-4 border-white 
+                    bg-transparent p-1 
+                    text-sm font-semibold text-gray-800
+                  `}
                   onClick={onClose}
                 >
                   <Icon
@@ -132,10 +141,10 @@ const CalendarPage = () => {
   };
 
   return (
-    <div className="flex-container flex h-screen flex-col items-center justify-center bg-gray-100 dark:bg-[#2c2c2c]">
+    <div className="flex-container flex h-screen flex-col items-center justify-center bg-gray-100 dark:bg-[#1D2228]">
       {/* Cards Section */}
       <div className="cards mb-5 -mt-[20%] flex flex-row gap-4">
-        <div className="card flex-1 rounded-3xl bg-white p-3 shadow-md dark:bg-[#3c3c3c]">
+        <div className="card flex-1 rounded-3xl bg-white p-3 shadow-md dark:bg-[#2A2E37]">
           <h2 className="text-4xl font-semibold text-gray-800 dark:text-white">
             {workoutsThisWeek}
           </h2>
@@ -143,7 +152,7 @@ const CalendarPage = () => {
             Workouts this week
           </p>
         </div>
-        <div className="card flex-1 rounded-3xl bg-white p-3 shadow-md dark:bg-[#3c3c3c]">
+        <div className="card flex-1 rounded-3xl bg-white p-3 shadow-md dark:bg-[#2A2E37]">
           <h2 className="text-4xl font-semibold text-gray-800 dark:text-white">
             {workoutsThisMonth}
           </h2>
@@ -155,7 +164,7 @@ const CalendarPage = () => {
 
       <div
         className={
-          'h-[58vh] w-full max-w-4xl justify-center overflow-x-auto rounded-3xl bg-white shadow-lg dark:bg-[#353535]'
+          'h-[58vh] w-full max-w-4xl justify-center overflow-x-auto rounded-3xl bg-white shadow-lg dark:bg-[#2A2E37]'
         }
       >
         <style>{`

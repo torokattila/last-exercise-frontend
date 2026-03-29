@@ -9,7 +9,7 @@ const AddExerciseButton = () => {
       <button
         className={`
           w-[80%] rounded-2xl 
-          bg-[#4A9ECB] py-2 px-3 font-semibold uppercase text-white
+          bg-[#1490d3] py-2 px-3 font-semibold uppercase text-white
           shadow-card transition-all hover:rotate-90 hover:bg-[#0e6696]
         `}
         onClick={() => navigate('/exercises/add')}

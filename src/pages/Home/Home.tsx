@@ -6,6 +6,7 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import ExerciseCard from '../../components/ExerciseCard';
 import AddExerciseButton from '../../components/shared/AddExerciseButton';
+import WeeklyWorkoutChart from '../../components/WeeklyWorkoutChart/WeeklyWorkoutChart';
 import useHome from '../../hooks/useHome';
 import Exercise from '../../models/Exercise';
 
@@ -31,7 +32,7 @@ const Home = (): JSX.Element => {
   }, [user]);
 
   return (
-    <div className="flex h-screen w-full flex-col overflow-y-auto bg-white px-5 pb-16 dark:bg-[#28282B] lg:pb-7">
+    <div className="flex h-screen w-full flex-col overflow-y-auto bg-white px-4 pb-16 dark:bg-[#1D2228] lg:pb-7">
       <div className="mt-5 lg:mt-7">
         <p className="mt-1 text-gray-500 dark:text-gray-400">Welcome back</p>
         <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
@@ -41,8 +42,8 @@ const Home = (): JSX.Element => {
 
       {user?.lastExercise && (
         <div className="mt-4 lg:mt-7">
-          <h1 className="text-xl font-bold text-gray-800 dark:text-white">
-            Your last workout was:
+          <h1 className="text-xl font-bold text-gray-800 dark:text-white uppercase">
+            Your last workout:
           </h1>
           <div className="mt-2">
             <ExerciseCard exercise={user?.lastExercise} isLastExercise />
@@ -50,9 +51,11 @@ const Home = (): JSX.Element => {
         </div>
       )}
 
+      <WeeklyWorkoutChart exerciseHistory={user?.exerciseHistory} />
+
       {user?.exercises && user?.exercises.length > 0 ? (
         <div className="mt-4 flex flex-col">
-          <h2 className="text-xl font-bold text-gray-800 dark:text-white">
+          <h2 className="text-xl font-bold text-gray-800 dark:text-white uppercase">
             Your workouts:
           </h2>
           <div className="w-full">
@@ -60,10 +63,10 @@ const Home = (): JSX.Element => {
               spaceBetween={-40}
               slidesPerView={1.2}
               style={{
-                marginLeft: '-40px',
-                marginRight: '-40px',
-                paddingLeft: 40,
-                paddingRight: 40,
+                marginLeft: '-32px',
+                marginRight: '-32px',
+                paddingLeft: 32,
+                paddingRight: 32,
               }}
               breakpoints={{
                 640: { slidesPerView: 2.2 },

@@ -1,0 +1,31 @@
+diff --git a/node_modules/fork-ts-checker-webpack-plugin/lib/typescript-reporter/profile/TypeScriptPerformance.js b/node_modules/fork-ts-checker-webpack-plugin/lib/typescript-reporter/profile/TypeScriptPerformance.js
+index 5d94098..c9181cc 100644
+--- a/node_modules/fork-ts-checker-webpack-plugin/lib/typescript-reporter/profile/TypeScriptPerformance.js
++++ b/node_modules/fork-ts-checker-webpack-plugin/lib/typescript-reporter/profile/TypeScriptPerformance.js
+@@ -9,14 +9,18 @@ function connectTypeScriptPerformance(typescript, performance) {
+     if (typeScriptPerformance) {
+         const { mark, measure } = typeScriptPerformance;
+         const { enable, disable } = performance;
+-        typeScriptPerformance.mark = (name) => {
+-            mark(name);
+-            performance.mark(name);
+-        };
+-        typeScriptPerformance.measure = (name, startMark, endMark) => {
+-            measure(name, startMark, endMark);
+-            performance.measure(name, startMark, endMark);
+-        };
++        try {
++            typeScriptPerformance.mark = (name) => {
++                mark(name);
++                performance.mark(name);
++            };
++            typeScriptPerformance.measure = (name, startMark, endMark) => {
++                measure(name, startMark, endMark);
++                performance.measure(name, startMark, endMark);
++            };
++        } catch (e) {
++            // Node 20+ has read-only performance.mark/measure getters
++        }
+         return Object.assign(Object.assign({}, performance), { enable() {
+                 enable();
+                 typeScriptPerformance.enable();
