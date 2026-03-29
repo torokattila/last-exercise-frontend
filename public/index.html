@@ -13,6 +13,16 @@
 </head>
 
 <body>
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('mode') === 'dark') {
+          document.documentElement.classList.add('dark', 'c_darkmode');
+          document.body.style.backgroundColor = '#1D2228';
+        }
+      } catch (e) {}
+    })();
+  </script>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
 </body>
