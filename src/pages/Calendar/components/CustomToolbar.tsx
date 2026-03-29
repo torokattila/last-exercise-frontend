@@ -12,7 +12,7 @@ const CustomToolbar = ({
   onNavigate: (navigate: NavigateAction, date?: Date) => void;
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center gap-1 bg-[#4A9ECB] px-[2%] pb-[5%] text-white shadow-md">
+    <div className="flex flex-col items-center justify-center gap-1 bg-[#1490d3] px-[2%] pb-[5%] text-white shadow-md">
       <div className="mt-3 flex flex-row gap-x-2">
         <div className="flex flex-row items-center gap-2">
           <button

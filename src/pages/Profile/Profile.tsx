@@ -390,7 +390,7 @@ const Profile = () => {
           className={`
             relative h-3.5 w-7 cursor-pointer rounded-full border-2 
             border-transparent bg-slate-400 outline-none
-            transition-colors data-[state=checked]:bg-[#4A9ECB]`}
+            transition-colors data-[state=checked]:bg-[#1490d3]`}
         >
           <Switch.Thumb
             className={`
@@ -403,7 +403,7 @@ const Profile = () => {
 
       <button
         type="button"
-        className="mt-4 flex items-center justify-center gap-2 rounded-2xl bg-[#4A9ECB] px-3 py-2 text-center text-xl font-semibold uppercase text-white"
+        className="mt-4 flex items-center justify-center gap-2 rounded-2xl bg-[#1490d3] px-3 py-2 text-center text-xl font-semibold uppercase text-white"
         onClick={handleLogoutConfirm}
       >
         <span>Log out</span>
