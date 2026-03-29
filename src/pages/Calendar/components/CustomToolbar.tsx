@@ -16,7 +16,7 @@ const CustomToolbar = ({
       <div className="mt-3 flex flex-row gap-x-2">
         <div className="flex flex-row items-center gap-2">
           <button
-            className="rounded-full bg-white p-2 text-[#4A9ECB] shadow-2xl dark:bg-[#38383a] dark:text-[#fff]"
+            className="rounded-full bg-white p-2 text-[#4A9ECB] shadow-2xl dark:bg-[#2A2E37] dark:text-[#fff]"
             onClick={() => onNavigate('TODAY')}
           >
             <Icon
@@ -29,7 +29,7 @@ const CustomToolbar = ({
         </div>
         <div className="flex flex-row items-center justify-center gap-1">
           <button
-            className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-[#4A9ECB] shadow-2xl dark:bg-[#38383a] dark:text-[#fff]"
+            className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-[#4A9ECB] shadow-2xl dark:bg-[#2A2E37] dark:text-[#fff]"
             onClick={() => onNavigate('PREV')}
           >
             <Icon
@@ -39,7 +39,7 @@ const CustomToolbar = ({
             />
           </button>
           <button
-            className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-[#4A9ECB] shadow-2xl dark:bg-[#38383a] dark:text-[#fff]"
+            className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-[#4A9ECB] shadow-2xl dark:bg-[#2A2E37] dark:text-[#fff]"
             onClick={() => onNavigate('NEXT')}
           >
             <Icon

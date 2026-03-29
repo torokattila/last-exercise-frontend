@@ -135,7 +135,7 @@ const CalendarPage = () => {
     <div className="flex-container flex h-screen flex-col items-center justify-center bg-gray-100 dark:bg-[#1D2228]">
       {/* Cards Section */}
       <div className="cards mb-5 -mt-[20%] flex flex-row gap-4">
-        <div className="card flex-1 rounded-3xl bg-white p-3 shadow-md dark:bg-[#3c3c3c]">
+        <div className="card flex-1 rounded-3xl bg-white p-3 shadow-md dark:bg-[#2A2E37]">
           <h2 className="text-4xl font-semibold text-gray-800 dark:text-white">
             {workoutsThisWeek}
           </h2>
@@ -143,7 +143,7 @@ const CalendarPage = () => {
             Workouts this week
           </p>
         </div>
-        <div className="card flex-1 rounded-3xl bg-white p-3 shadow-md dark:bg-[#3c3c3c]">
+        <div className="card flex-1 rounded-3xl bg-white p-3 shadow-md dark:bg-[#2A2E37]">
           <h2 className="text-4xl font-semibold text-gray-800 dark:text-white">
             {workoutsThisMonth}
           </h2>
@@ -155,7 +155,7 @@ const CalendarPage = () => {
 
       <div
         className={
-          'h-[58vh] w-full max-w-4xl justify-center overflow-x-auto rounded-3xl bg-white shadow-lg dark:bg-[#353535]'
+          'h-[58vh] w-full max-w-4xl justify-center overflow-x-auto rounded-3xl bg-white shadow-lg dark:bg-[#2A2E37]'
         }
       >
         <style>{`
