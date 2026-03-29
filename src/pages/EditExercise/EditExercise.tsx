@@ -369,10 +369,10 @@ const EditExercise = () => {
                   if (e.target.value === '') {
                     setExerciseOrder('');
                   } else {
-                    setExerciseOrder(Number(e.target.value));
+                    setExerciseOrder(Math.max(1, Number(e.target.value)));
                   }
                 }}
-                placeholder="Exercise Name"
+                placeholder="Exercise order"
               />
             </div>
 

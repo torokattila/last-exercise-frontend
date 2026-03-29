@@ -6,7 +6,7 @@ interface ExercisePayload {
   textColor: string;
   duration: string;
   exerciseTypes: Partial<ExerciseType>[];
-  order: number;
+  order: number | string;
   userId: number;
 }
 

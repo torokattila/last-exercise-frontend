@@ -280,9 +280,16 @@ const AddExercise = () => {
                 type="number"
                 min={1}
                 onChange={(e) => {
-                  setExercise({ ...exercise, order: Number(e.target.value) });
+                  if (e.target.value === '') {
+                    setExercise({ ...exercise, order: '' });
+                  } else {
+                    setExercise({
+                      ...exercise,
+                      order: Math.max(1, Number(e.target.value)),
+                    });
+                  }
                 }}
-                placeholder="Exercise Name"
+                placeholder="Exercise order"
               />
             </div>
 

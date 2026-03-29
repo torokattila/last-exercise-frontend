@@ -93,11 +93,17 @@ const ExerciseTypeAccordionCard = ({
                 Order on the Exercise page:
               </label>
               <input
-                value={type.order}
+                value={type.order ?? ''}
                 type="number"
                 className="w-full rounded-full border-2 bg-white py-1.5 px-3 outline-none transition-all focus:shadow-card dark:bg-[#28282B] dark:text-white"
                 onChange={(e) =>
-                  onChange({ ...type, order: Number(e.target.value) })
+                  onChange({
+                    ...type,
+                    order:
+                      e.target.value === ''
+                        ? undefined
+                        : Math.max(1, Number(e.target.value)),
+                  })
                 }
               />
             </div>
@@ -110,11 +116,17 @@ const ExerciseTypeAccordionCard = ({
                 Number of series card:
               </label>
               <input
-                value={Number(type.seriesCardNumber)}
+                value={type.seriesCardNumber ?? ''}
                 type="number"
                 className="w-full rounded-full border-2 bg-white py-1.5 px-3 outline-none transition-all focus:shadow-card dark:bg-[#28282B] dark:text-white"
                 onChange={(e) =>
-                  onChange({ ...type, seriesCardNumber: Number(e.target.value) })
+                  onChange({
+                    ...type,
+                    seriesCardNumber:
+                      e.target.value === ''
+                        ? null
+                        : Math.max(1, Number(e.target.value)),
+                  })
                 }
               />
             </div>
@@ -127,13 +139,16 @@ const ExerciseTypeAccordionCard = ({
                 Number of repetitions:
               </label>
               <input
-                value={Number(type.numberOfRepetitions)}
+                value={type.numberOfRepetitions ?? ''}
                 type="number"
                 className="w-full rounded-full border-2 bg-white py-1.5 px-3 outline-none transition-all focus:shadow-card dark:bg-[#28282B] dark:text-white"
                 onChange={(e) =>
                   onChange({
                     ...type,
-                    numberOfRepetitions: Number(e.target.value),
+                    numberOfRepetitions:
+                      e.target.value === ''
+                        ? null
+                        : Math.max(1, Number(e.target.value)),
                   })
                 }
               />
