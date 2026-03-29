@@ -16,7 +16,7 @@ const DarkModeSwitch = () => {
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark', 'c_darkmode');
-      document.body.style.backgroundColor = '#28282B';
+      document.body.style.backgroundColor = '#1D2228';
       Storage.setItem('mode', 'dark');
     } else {
       document.documentElement.classList.remove('dark', 'c_darkmode');

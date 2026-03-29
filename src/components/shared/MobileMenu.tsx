@@ -1,5 +1,4 @@
 import { Icon } from '@iconify/react';
-import classNames from 'classnames';
 
 import calendarFill from '@iconify/icons-eva/calendar-fill';
 import homeFill from '@iconify/icons-eva/home-fill';
@@ -17,7 +16,7 @@ const MobileMenu = () => {
   } = useMenu();
 
   const activeColor = '#1490d3';
-  const inactiveColor = '#98bbcf';
+  const inactiveColor = '#91919181';
 
   return (
     <div
@@ -25,8 +24,9 @@ const MobileMenu = () => {
         transform: 'translateX(-50%)',
       }}
       className={`
-        fixed bottom-0 left-1/2 z-20 flex h-10 w-full flex-row items-center
-        justify-evenly bg-white shadow-top dark:bg-[#38383a] lg:hidden
+        fixed bottom-1.5 left-1/2 z-20 flex h-8 w-[75%] flex-row items-center
+        justify-evenly rounded-full bg-white shadow-top dark:bg-[#38383a] 
+        lg:hidden
       `}
     >
       <div
@@ -41,42 +41,9 @@ const MobileMenu = () => {
       >
         <Icon
           icon={homeFill}
-          fontSize={24}
+          fontSize={34}
           color={isHomePage ? activeColor : inactiveColor}
         />
-        <span
-          className={classNames('mt-1 text-xs font-medium transition-colors', {
-            'text-[#1490d3]': isHomePage,
-            'text-[#98bbcf]': !isHomePage,
-          })}
-        >
-          Home
-        </span>
-      </div>
-
-      <div
-        className="flex cursor-pointer flex-col items-center justify-center transition-all"
-        onClick={() => {
-          if (isExercisePage) {
-            handleConfirmPageNavigation('profile');
-          } else {
-            handleNavigateToOtherPage('profile');
-          }
-        }}
-      >
-        <Icon
-          icon={personFill}
-          fontSize={25}
-          color={isProfilePage ? activeColor : inactiveColor}
-        />
-        <span
-          className={classNames('mt-1 text-xs font-medium transition-colors', {
-            'text-[#1490d3]': isProfilePage,
-            'text-[#98bbcf]': !isProfilePage,
-          })}
-        >
-          Profile
-        </span>
       </div>
 
       <div
@@ -91,20 +58,27 @@ const MobileMenu = () => {
       >
         <Icon
           icon={calendarFill}
-          fontSize={25}
+          fontSize={34}
           color={isCalendarPage ? activeColor : inactiveColor}
         />
-        <span
-          className={classNames('mt-1 text-xs font-medium transition-colors', {
-            'text-[#1490d3]': isCalendarPage,
-            'text-[#98bbcf]': !isCalendarPage,
-          })}
-        >
-          Calendar
-        </span>
       </div>
 
-
+      <div
+        className="flex cursor-pointer flex-col items-center justify-center transition-all"
+        onClick={() => {
+          if (isExercisePage) {
+            handleConfirmPageNavigation('profile');
+          } else {
+            handleNavigateToOtherPage('profile');
+          }
+        }}
+      >
+        <Icon
+          icon={personFill}
+          fontSize={36}
+          color={isProfilePage ? activeColor : inactiveColor}
+        />
+      </div>
     </div>
   );
 };

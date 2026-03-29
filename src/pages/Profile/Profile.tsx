@@ -56,7 +56,7 @@ const Profile = () => {
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark', 'c_darkmode');
-      document.body.style.backgroundColor = '#28282B';
+      document.body.style.backgroundColor = '#1D2228';
       setItem('mode', 'dark');
     } else {
       document.documentElement.classList.remove('dark', 'c_darkmode');
@@ -68,7 +68,7 @@ const Profile = () => {
   return (
     <div
       id="profile-page"
-      className="flex h-screen w-full flex-col overflow-y-auto bg-white px-5 !pb-16 dark:bg-[#28282B] lg:pb-7"
+      className="flex h-screen w-full flex-col overflow-y-auto bg-white px-5 !pb-16 dark:bg-[#1D2228] lg:pb-7"
     >
       <div className="mt-5 lg:mt-7">
         <h1 className="text-2xl font-bold text-gray-800 dark:text-white">

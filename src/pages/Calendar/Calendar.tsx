@@ -132,7 +132,7 @@ const CalendarPage = () => {
   };
 
   return (
-    <div className="flex-container flex h-screen flex-col items-center justify-center bg-gray-100 dark:bg-[#2c2c2c]">
+    <div className="flex-container flex h-screen flex-col items-center justify-center bg-gray-100 dark:bg-[#1D2228]">
       {/* Cards Section */}
       <div className="cards mb-5 -mt-[20%] flex flex-row gap-4">
         <div className="card flex-1 rounded-3xl bg-white p-3 shadow-md dark:bg-[#3c3c3c]">

@@ -109,7 +109,7 @@ const EditExercise = () => {
         style={{
           backgroundColor: exerciseCardColor,
         }}
-        className={`relative lg:!bg-white dark:lg:!bg-[#28282B]`}
+        className={`relative lg:!bg-white dark:lg:!bg-[#1D2228]`}
       >
         <div className="relative flex h-full w-full flex-col gap-y-4 lg:gap-y-0">
           <div className="mt-5 flex w-full items-center justify-center lg:justify-start lg:px-5">
@@ -123,7 +123,7 @@ const EditExercise = () => {
             </h1>
           </div>
 
-          <div className="relative flex w-full flex-col gap-y-4 rounded-t-[40px] bg-white px-5 pb-15 dark:bg-[#28282B] lg:rounded-none">
+          <div className="relative flex w-full flex-col gap-y-4 rounded-t-[40px] bg-white px-5 pb-15 dark:bg-[#1D2228] lg:rounded-none">
             <div
               className={`fixed top-17 right-3 flex flex-col items-center justify-center gap-y-2 rounded-full lg:top-10`}
             >
@@ -132,7 +132,7 @@ const EditExercise = () => {
                 style={{
                   backgroundColor: exerciseCardColor,
                 }}
-                className="flex h-7 w-7 items-center justify-center rounded-full bg-white shadow-card transition-all hover:bg-gray-100 dark:bg-[#28282B] dark:hover:bg-[#3a3a3d]"
+                className="flex h-7 w-7 items-center justify-center rounded-full bg-white shadow-card transition-all hover:bg-gray-100 dark:bg-[#1D2228] dark:hover:bg-[#3a3a3d]"
               >
                 <Icon
                   icon={moreVerticalFill}

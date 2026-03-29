@@ -80,7 +80,7 @@ const AddExercise = () => {
         style={{
           backgroundColor: exercise.cardColor,
         }}
-        className="relative lg:!bg-white dark:lg:!bg-[#28282B]"
+        className="relative lg:!bg-white dark:lg:!bg-[#1D2228]"
       >
         <div className="relative flex h-full w-full flex-col gap-y-4 lg:gap-y-0">
           <div className="mt-5 flex w-full items-center justify-center lg:justify-start lg:px-5">
@@ -94,7 +94,7 @@ const AddExercise = () => {
             </h1>
           </div>
 
-          <div className="relative flex w-full flex-col gap-y-4 rounded-t-[40px] bg-white px-5 pb-15 dark:bg-[#28282B] lg:rounded-none">
+          <div className="relative flex w-full flex-col gap-y-4 rounded-t-[40px] bg-white px-5 pb-15 dark:bg-[#1D2228] lg:rounded-none lg:min-h-screen">
             <div className="fixed top-17 right-3 lg:top-10">
               <button
                 onClick={() => {

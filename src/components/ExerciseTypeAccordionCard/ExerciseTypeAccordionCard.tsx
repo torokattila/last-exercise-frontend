@@ -78,7 +78,7 @@ const ExerciseTypeAccordionCard = ({
                 Name:
               </label>
               <input
-                className="w-full rounded-full border-2 bg-white py-1.5 px-3 outline-none transition-all focus:shadow-card dark:bg-[#28282B] dark:text-white"
+                className="w-full rounded-full border-2 bg-white py-1.5 px-3 outline-none transition-all focus:shadow-card dark:bg-[#1D2228] dark:text-white"
                 type="text"
                 value={type.name}
                 onChange={(e) => onChange({ ...type, name: e.target.value })}
@@ -95,7 +95,7 @@ const ExerciseTypeAccordionCard = ({
               <input
                 value={type.order ?? ''}
                 type="number"
-                className="w-full rounded-full border-2 bg-white py-1.5 px-3 outline-none transition-all focus:shadow-card dark:bg-[#28282B] dark:text-white"
+                className="w-full rounded-full border-2 bg-white py-1.5 px-3 outline-none transition-all focus:shadow-card dark:bg-[#1D2228] dark:text-white"
                 onChange={(e) =>
                   onChange({
                     ...type,
@@ -118,7 +118,7 @@ const ExerciseTypeAccordionCard = ({
               <input
                 value={type.seriesCardNumber ?? ''}
                 type="number"
-                className="w-full rounded-full border-2 bg-white py-1.5 px-3 outline-none transition-all focus:shadow-card dark:bg-[#28282B] dark:text-white"
+                className="w-full rounded-full border-2 bg-white py-1.5 px-3 outline-none transition-all focus:shadow-card dark:bg-[#1D2228] dark:text-white"
                 onChange={(e) =>
                   onChange({
                     ...type,
@@ -141,7 +141,7 @@ const ExerciseTypeAccordionCard = ({
               <input
                 value={type.numberOfRepetitions ?? ''}
                 type="number"
-                className="w-full rounded-full border-2 bg-white py-1.5 px-3 outline-none transition-all focus:shadow-card dark:bg-[#28282B] dark:text-white"
+                className="w-full rounded-full border-2 bg-white py-1.5 px-3 outline-none transition-all focus:shadow-card dark:bg-[#1D2228] dark:text-white"
                 onChange={(e) =>
                   onChange({
                     ...type,

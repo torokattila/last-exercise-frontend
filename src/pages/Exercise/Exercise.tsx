@@ -135,7 +135,7 @@ const Exercise = () => {
             </h1>
           </div>
 
-          <div className="relative flex h-full flex-col justify-center rounded-t-[40px] bg-white pb-17 dark:bg-[#28282B]">
+          <div className="relative flex h-full flex-col justify-center rounded-t-[40px] bg-white pb-17 dark:bg-[#1D2228]">
             {sortedExerciseTypes.map((type) => (
               <div key={type.id}>
                 <ExerciseTypeCard key={type.id} exerciseType={type} />

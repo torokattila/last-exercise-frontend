@@ -16,7 +16,7 @@ const DesktopMenu = () => {
   } = useMenu();
 
   return (
-    <div className="fixed hidden h-screen w-12 flex-col items-center bg-white shadow-xl dark:bg-[#28282B] lg:flex">
+    <div className="fixed hidden h-screen w-12 flex-col items-center bg-white shadow-xl dark:bg-[#1D2228] lg:flex">
       <div
         className="mt-3 cursor-pointer"
         onClick={() => {
