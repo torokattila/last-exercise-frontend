@@ -1,3 +1,4 @@
+import * as Popover from '@radix-ui/react-popover';
 import { addDays, format, isSameDay, startOfWeek } from 'date-fns';
 import { useMemo } from 'react';
 import { getItem } from '../../lib/storage';
@@ -40,22 +41,18 @@ const WeeklyWorkoutChart = ({ exerciseHistory }: Props) => {
 
   return (
     <div className="mt-4 w-full rounded-3xl bg-white p-3 shadow-card dark:bg-[#2A2E37]">
-      <h2 className="mb-4 text-lg font-bold uppercase text-gray-800 dark:text-white">
-        Progress this week
-      </h2>
-      <div className="flex h-16 items-end justify-between gap-1">
-        {days.map((day) => {
-          const hasWorkout = day.workouts.length > 0;
-          const isToday = isSameDay(day.date, today);
-          const color = hasWorkout
-            ? day.workouts[0].exercise?.cardColor ?? '#4A9ECB'
-            : undefined;
+        <h2 className="mb-4 text-lg font-bold uppercase text-gray-800 dark:text-white">
+          Progress this week
+        </h2>
+        <div className="flex h-16 items-end justify-between gap-1">
+          {days.map((day) => {
+            const hasWorkout = day.workouts.length > 0;
+            const isToday = isSameDay(day.date, today);
+            const color = hasWorkout
+              ? day.workouts[0].exercise?.cardColor ?? '#4A9ECB'
+              : undefined;
 
-          return (
-            <div
-              key={day.label}
-              className="flex flex-1 flex-col items-center gap-y-1"
-            >
+            const column = (
               <div
                 className="flex w-full flex-col items-center justify-end"
                 style={{ height: '100px' }}
@@ -67,28 +64,66 @@ const WeeklyWorkoutChart = ({ exerciseHistory }: Props) => {
                     backgroundColor: hasWorkout
                       ? color
                       : isToday
-                      ? '#94a3b8'
-                      : isDarkMode
-                      ? '#434c53'
-                      : '#91919181',
+                        ? '#94a3b8'
+                        : isDarkMode
+                          ? '#434c53'
+                          : '#91919181',
                   }}
                 />
               </div>
-              <span
-                className={
-                  isToday
-                    ? 'text-xs font-semibold text-[#1490d3]'
-                    : 'text-xs font-semibold text-gray-400 dark:text-gray-500'
-                }
+            );
+
+            return (
+              <div
+                key={day.label}
+                className="flex flex-1 flex-col items-center gap-y-1"
               >
-                {day.label}
-              </span>
-            </div>
-          );
-        })}
+                {hasWorkout ? (
+                  <Popover.Root>
+                    <Popover.Trigger asChild>
+                      <button className="w-full cursor-pointer">
+                        {column}
+                      </button>
+                    </Popover.Trigger>
+                    <Popover.Portal>
+                      <Popover.Content
+                        side="top"
+                        sideOffset={6}
+                        className="z-50 rounded-xl px-2 py-1 text-sm font-semibold text-white shadow-card"
+                        style={{ backgroundColor: color }}
+                      >
+                        <p>{day.workouts[0].exercise?.name}</p>
+                        {day.workouts.length > 1 && (
+                          <p className="text-xs font-normal opacity-80">
+                            +{day.workouts.length - 1} more
+                          </p>
+                        )}
+                        <p className="text-xs font-normal opacity-80">
+                          {format(day.date, 'MMM d')}
+                        </p>
+                        <Popover.Arrow style={{ fill: color }} />
+                      </Popover.Content>
+                    </Popover.Portal>
+                  </Popover.Root>
+                ) : (
+                  column
+                )}
+                <span
+                  className={
+                    isToday
+                      ? 'text-xs font-semibold text-[#1490d3]'
+                      : 'text-xs font-semibold text-gray-400 dark:text-gray-500'
+                  }
+                >
+                  {day.label}
+                </span>
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
   );
 };
 
 export default WeeklyWorkoutChart;
+
