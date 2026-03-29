@@ -3,5 +3,8 @@
   "buildCommand": "npm run build",
   "env": {
     "CI": "false"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }
