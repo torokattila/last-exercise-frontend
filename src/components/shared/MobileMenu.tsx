@@ -5,7 +5,6 @@ import calendarFill from '@iconify/icons-eva/calendar-fill';
 import homeFill from '@iconify/icons-eva/home-fill';
 import personFill from '@iconify/icons-eva/person-fill';
 import useMenu from '../../hooks/useMenu';
-import DarkModeSwitch from '../DarkModeSwitch';
 
 const MobileMenu = () => {
   const {
@@ -105,10 +104,7 @@ const MobileMenu = () => {
         </span>
       </div>
 
-      <div className="flex flex-col items-center justify-center">
-        <DarkModeSwitch />
-        <span className="mt-1 text-xs font-medium text-[#98bbcf]">Theme</span>
-      </div>
+
     </div>
   );
 };

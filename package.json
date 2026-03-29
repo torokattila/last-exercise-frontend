@@ -9,6 +9,7 @@
     "@iconify/icons-ic": "^1.2.3",
     "@iconify/react": "^3.2.1",
     "@mui/material": "^5.10.13",
+    "@radix-ui/react-switch": "^1.2.6",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",

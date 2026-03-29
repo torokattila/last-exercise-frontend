@@ -1,6 +1,5 @@
 import { Tooltip } from '@mui/material';
 import classNames from 'classnames';
-import DarkModeSwitch from '../DarkModeSwitch';
 
 import homeFill from '@iconify/icons-eva/home-fill';
 import personFill from '@iconify/icons-eva/person-fill';
@@ -80,11 +79,7 @@ const DesktopMenu = () => {
           </div>
         </Tooltip>
 
-        <Tooltip title="Switch color mode" arrow placement="right">
-          <div className="p-1.5">
-            <DarkModeSwitch />
-          </div>
-        </Tooltip>
+
       </div>
     </div>
   );

@@ -1,3 +1,6 @@
+import * as Switch from '@radix-ui/react-switch';
+import { useEffect, useState } from 'react';
+import { getItem, setItem } from '../../lib/storage';
 import useProfile from '../../hooks/useProfile';
 
 import alertTriangleOutline from '@iconify/icons-eva/alert-triangle-outline';
@@ -41,6 +44,22 @@ const Profile = () => {
   } = useProfile();
   const { handleLogoutConfirm } = useLogout();
 
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(
+    getItem('mode') === 'dark',
+  );
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark', 'c_darkmode');
+      document.body.style.backgroundColor = '#28282B';
+      setItem('mode', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark', 'c_darkmode');
+      document.body.style.backgroundColor = 'white';
+      setItem('mode', 'light');
+    }
+  }, [isDarkMode]);
+
   return (
     <div
       id="profile-page"
@@ -69,7 +88,7 @@ const Profile = () => {
               {
                 'border-red-400 placeholder:text-red-400':
                   baseDataErrors.firstname,
-              }
+              },
             )}
           />
           <Icon
@@ -92,7 +111,7 @@ const Profile = () => {
               {
                 'border-red-400 placeholder:text-red-400':
                   baseDataErrors.lastname,
-              }
+              },
             )}
           />
           <Icon
@@ -114,7 +133,7 @@ const Profile = () => {
               'mt-1 rounded-full border-2 border-white bg-transparent py-1 pl-7 pr-4 text-white outline-none transition-all placeholder:text-gray-300 focus:border-cyan-200',
               {
                 'border-red-400 placeholder:text-red-400': baseDataErrors.email,
-              }
+              },
             )}
           />
           <Icon
@@ -157,7 +176,7 @@ const Profile = () => {
               {
                 'border-red-400 placeholder:text-red-400':
                   passwordChangeErrors.currentPassword,
-              }
+              },
             )}
           />
           <Icon
@@ -188,7 +207,7 @@ const Profile = () => {
               {
                 'border-red-400 placeholder:text-red-400':
                   passwordChangeErrors.newPassword,
-              }
+              },
             )}
           />
           <Icon
@@ -223,7 +242,7 @@ const Profile = () => {
               {
                 'border-red-400 placeholder:text-red-400':
                   passwordChangeErrors.newPasswordConfirm,
-              }
+              },
             )}
           />
           <Icon
@@ -266,6 +285,31 @@ const Profile = () => {
             delete profile
           </button>
         </div>
+      </div>
+
+      <div className="mt-4 flex w-full items-center justify-between rounded-2xl bg-gradient-to-r from-slate-600 to-slate-500 p-3 shadow-card lg:w-1/2">
+        <label
+          className="text-xl font-semibold text-white"
+          htmlFor="dark-mode-switch"
+        >
+          Dark mode
+        </label>
+        <Switch.Root
+          id="dark-mode-switch"
+          checked={isDarkMode}
+          onCheckedChange={setIsDarkMode}
+          className={`
+            relative h-3.5 w-7 cursor-pointer rounded-full border-2 
+            border-transparent bg-slate-400 outline-none 
+            transition-colors data-[state=checked]:bg-[#4A9ECB]`}
+        >
+          <Switch.Thumb
+            className={`
+              block h-3 w-3 translate-x-0 rounded-full bg-white 
+              shadow-md transition-transform duration-200 
+              data-[state=checked]:translate-x-3.5`}
+          />
+        </Switch.Root>
       </div>
 
       <button
