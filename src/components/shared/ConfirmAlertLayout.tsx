@@ -1,11 +1,13 @@
 import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
 
 type Props = {
   children: JSX.Element;
   classNames?: string;
+  style?: React.CSSProperties;
 };
 
-const ConfirmAlertLayout = ({ children, classNames }: Props) => {
+const ConfirmAlertLayout = ({ children, classNames, style }: Props) => {
   return (
     <AnimatePresence>
       <div
@@ -30,6 +32,7 @@ const ConfirmAlertLayout = ({ children, classNames }: Props) => {
           my-auto mx-auto h-20 rounded-2xl bg-white p-3 align-middle 
           opacity-100 shadow-card lg:w-65 ${classNames ?? ''}
         `}
+        style={style}
       >
         {children}
       </motion.div>

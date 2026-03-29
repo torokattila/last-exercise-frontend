@@ -49,7 +49,7 @@ const eventStyleGetter = (
   event: CalendarEvent,
   start: Date,
   end: Date,
-  isSelected: boolean
+  isSelected: boolean,
 ) => {
   return {
     style: {
@@ -84,7 +84,7 @@ const CalendarPage = () => {
         isWithinInterval(new Date(history.date), {
           start: weekStart,
           end: weekEnd,
-        })
+        }),
       ).length ?? 0
     );
   }, [user?.exerciseHistory]);
@@ -98,7 +98,7 @@ const CalendarPage = () => {
         isWithinInterval(new Date(history.date), {
           start: monthStart,
           end: monthEnd,
-        })
+        }),
       ).length ?? 0
     );
   }, [user?.exerciseHistory]);
@@ -107,11 +107,20 @@ const CalendarPage = () => {
     confirmAlert({
       customUI: ({ onClose }: { onClose: () => void }) => {
         return (
-          <ConfirmAlertLayout classNames="w-[80%] rounded-3xl h-24 p-2 bg-[#3c3c3c]">
+          <ConfirmAlertLayout
+            classNames="w-[80%] rounded-3xl h-24 p-2"
+            style={{
+              backgroundColor: event.cardColor,
+            }}
+          >
             <div>
               <div className="flex justify-end gap-2">
                 <button
-                  className="rounded-full border-4 border-white bg-transparent p-1 text-sm font-semibold text-gray-800"
+                  className={`
+                    rounded-full border-4 border-white 
+                    bg-transparent p-1 
+                    text-sm font-semibold text-gray-800
+                  `}
                   onClick={onClose}
                 >
                   <Icon
