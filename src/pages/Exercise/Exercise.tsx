@@ -54,7 +54,7 @@ const Exercise = () => {
       const cards = type.seriesCardNumber || 0;
       totalCards += cards;
 
-      const storedDeletedCards = getItem(`deletedCards_${type.name}`);
+      const storedDeletedCards = getItem(`deletedCards_${type.id}`);
       if (storedDeletedCards) {
         const deletedCardIds = JSON.parse(storedDeletedCards);
         completedCards += deletedCardIds.length;
