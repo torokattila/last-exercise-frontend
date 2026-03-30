@@ -23,7 +23,7 @@ class ApiClient {
     this.client.interceptors.request.use(this.handleAuth);
     this.client.interceptors.response.use(
       (response) => response,
-      this.handleUnauthorized
+      this.handleUnauthorized,
     );
   }
 
@@ -63,7 +63,7 @@ class ApiClient {
   async finishExercise(
     userId: number,
     exerciseId: number,
-    duration: string
+    duration: string,
   ): Promise<User> {
     const response: AxiosResponse<User> = await this.client.put<User>(
       `/users/${userId}/lastexercise`,
@@ -75,7 +75,7 @@ class ApiClient {
         headers: {
           access_token: Storage.getItem('access_token') || '',
         },
-      }
+      },
     );
 
     return response.data;
@@ -89,7 +89,7 @@ class ApiClient {
         headers: {
           access_token: Storage.getItem('access_token') || '',
         },
-      }
+      },
     );
 
     return response.data;
@@ -97,7 +97,7 @@ class ApiClient {
 
   async updateUserPassword(
     userId: number,
-    data: PasswordChangePayload
+    data: PasswordChangePayload,
   ): Promise<User> {
     const response: AxiosResponse<User> = await this.client.put(
       `/users/${userId}/password/update`,
@@ -106,7 +106,7 @@ class ApiClient {
         headers: {
           access_token: Storage.getItem('access_token') || '',
         },
-      }
+      },
     );
 
     return response.data;
@@ -119,7 +119,22 @@ class ApiClient {
         headers: {
           access_token: Storage.getItem('access_token') || '',
         },
-      }
+      },
+    );
+
+    return response.data;
+  }
+
+  // History
+  async deleteFromHistory(userId: number, exerciseId: number, date: string): Promise<void> {
+    const response: AxiosResponse<void> = await this.client.delete(
+      `/users/${userId}/history/${exerciseId}`,
+      {
+        headers: {
+          access_token: Storage.getItem('access_token') || '',
+        },
+        data: { date }
+      },
     );
 
     return response.data;
@@ -133,7 +148,7 @@ class ApiClient {
         headers: {
           access_token: Storage.getItem('access_token') || '',
         },
-      }
+      },
     );
 
     return response.data;
@@ -147,7 +162,7 @@ class ApiClient {
         headers: {
           access_token: Storage.getItem('access_token') || '',
         },
-      }
+      },
     );
 
     return response.data;
@@ -161,7 +176,7 @@ class ApiClient {
         headers: {
           access_token: Storage.getItem('access_token') || '',
         },
-      }
+      },
     );
 
     return response.data;
@@ -174,7 +189,7 @@ class ApiClient {
         headers: {
           access_token: Storage.getItem('access_token') || '',
         },
-      }
+      },
     );
 
     return response.data;
@@ -188,7 +203,7 @@ class ApiClient {
         headers: {
           access_token: Storage.getItem('access_token') || '',
         },
-      }
+      },
     );
 
     return response.data;
