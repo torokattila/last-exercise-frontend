@@ -10,6 +10,7 @@ import trash2Fill from '@iconify/icons-eva/trash-2-fill';
 import { Icon } from '@iconify/react';
 import ExerciseTypeAccordionCard from '../../components/ExerciseTypeAccordionCard';
 import useHome from '../../hooks/useHome';
+import IntervalTimePicker from '../../components/IntervalTimePicker';
 
 const EditExercise = () => {
   const {
@@ -41,6 +42,10 @@ const EditExercise = () => {
   const [exerciseDuration, setExerciseDuration] = useState<string>(
     currentExercise?.duration ?? '',
   );
+  const [
+    exerciseIntervalNotificationTime,
+    setExerciseIntervalNotificationTime,
+  ] = useState<string>(currentExercise?.intervalNotificationTime ?? '01:00');
 
   const [openExerciseColorPicker, setOpenExeriseColorPicker] =
     useState<boolean>(false);
@@ -58,6 +63,7 @@ const EditExercise = () => {
   };
 
   useEffect(() => {
+    console.log(currentExercise);
     setExerciseId(currentExercise?.id ?? undefined);
     setExerciseCardColor(currentExercise?.cardColor ?? '');
     setExerciseName(currentExercise?.name ?? '');
@@ -65,6 +71,9 @@ const EditExercise = () => {
     setExerciseTextColor(currentExercise?.textColor ?? '');
     setExerciseTypes(currentExercise?.exerciseTypes ?? []);
     setExerciseDuration(currentExercise?.duration ?? '');
+    setExerciseIntervalNotificationTime(
+      currentExercise?.intervalNotificationTime ?? '01:00',
+    );
   }, [currentExercise]);
 
   useEffect(() => {
@@ -168,6 +177,8 @@ const EditExercise = () => {
                           userId: Number(user?.id) ?? undefined,
                           cardColor: exerciseCardColor,
                           duration: exerciseDuration,
+                          intervalNotificationTime:
+                            exerciseIntervalNotificationTime,
                           exerciseTypes: exerciseTypes,
                           name: exerciseName,
                           order: Number(exerciseOrder),
@@ -373,6 +384,17 @@ const EditExercise = () => {
                   }
                 }}
                 placeholder="Exercise order"
+              />
+            </div>
+
+            <div className="flex flex-col">
+              <label className="mb-1 font-medium dark:text-white">
+                Interval timer:
+              </label>
+              <IntervalTimePicker
+                value={exerciseIntervalNotificationTime || '01:00'}
+                onChange={setExerciseIntervalNotificationTime}
+                borderColor={exerciseCardColor}
               />
             </div>
 

@@ -5,6 +5,7 @@ interface ExercisePayload {
   cardColor: string;
   textColor: string;
   duration: string;
+  intervalNotificationTime: string;
   exerciseTypes: Partial<ExerciseType>[];
   order: number | string;
   userId: number;

@@ -11,6 +11,7 @@ interface Exercise extends EntityBase {
   cardColor: string;
   textColor: string;
   order: number;
+  intervalNotificationTime?: string | null;
 }
 
 export default Exercise;

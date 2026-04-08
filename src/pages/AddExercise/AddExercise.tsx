@@ -9,6 +9,7 @@ import { Icon } from '@iconify/react';
 import useExercise from '../../hooks/useExercise';
 import ExercisePayload from '../../api/payloads/ExercisePayload';
 import ExerciseTypeAccordionCard from '../../components/ExerciseTypeAccordionCard';
+import IntervalTimePicker from '../../components/IntervalTimePicker';
 
 const AddExercise = () => {
   const { user } = useHome();
@@ -33,6 +34,7 @@ const AddExercise = () => {
     cardColor: '#005A92',
     textColor: '#fff',
     duration: '',
+    intervalNotificationTime: '01:00',
     exerciseTypes: [],
     order: 1,
     userId: Number(user?.id) ?? undefined,
@@ -290,6 +292,19 @@ const AddExercise = () => {
                   }
                 }}
                 placeholder="Exercise order"
+              />
+            </div>
+
+            <div className="flex flex-col">
+              <label className="mb-1 font-medium dark:text-white">
+                Interval timer:
+              </label>
+              <IntervalTimePicker
+                value={exercise.intervalNotificationTime || '01:00'}
+                onChange={(v) =>
+                  setExercise({ ...exercise, intervalNotificationTime: v })
+                }
+                borderColor={exercise.cardColor}
               />
             </div>
 
