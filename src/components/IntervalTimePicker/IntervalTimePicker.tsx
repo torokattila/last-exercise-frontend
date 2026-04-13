@@ -35,6 +35,14 @@ const IntervalTimePicker = ({ value, onChange, borderColor }: Props) => {
   const [tempHour, setTempHour] = useState(initHour);
   const [tempMinute, setTempMinute] = useState(initMinute);
 
+  useEffect(() => {
+    if (!open) {
+      const { hour, minute } = parseValue(value);
+      setSelectedHour(hour);
+      setSelectedMinute(minute);
+    }
+  }, [value]);
+
   const hourRef = useRef<HTMLDivElement>(null);
   const minuteRef = useRef<HTMLDivElement>(null);
   const hourScrolling = useRef(false);
