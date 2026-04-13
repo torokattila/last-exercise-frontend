@@ -8,9 +8,10 @@ import moreVerticalFill from '@iconify/icons-eva/more-vertical-fill';
 import saveOutline from '@iconify/icons-eva/save-outline';
 import trash2Fill from '@iconify/icons-eva/trash-2-fill';
 import { Icon } from '@iconify/react';
+import * as Switch from '@radix-ui/react-switch';
 import ExerciseTypeAccordionCard from '../../components/ExerciseTypeAccordionCard';
-import useHome from '../../hooks/useHome';
 import IntervalTimePicker from '../../components/IntervalTimePicker';
+import useHome from '../../hooks/useHome';
 
 const EditExercise = () => {
   const {
@@ -46,6 +47,9 @@ const EditExercise = () => {
     exerciseIntervalNotificationTime,
     setExerciseIntervalNotificationTime,
   ] = useState<string>(currentExercise?.intervalNotificationTime ?? '01:00');
+  const [useIntervalTimer, setUseIntervalTimer] = useState<boolean>(
+    currentExercise?.useIntervalTimer ?? false,
+  );
 
   const [openExerciseColorPicker, setOpenExeriseColorPicker] =
     useState<boolean>(false);
@@ -74,6 +78,7 @@ const EditExercise = () => {
     setExerciseIntervalNotificationTime(
       currentExercise?.intervalNotificationTime ?? '01:00',
     );
+    setUseIntervalTimer(currentExercise?.useIntervalTimer ?? false);
   }, [currentExercise]);
 
   useEffect(() => {
@@ -179,6 +184,7 @@ const EditExercise = () => {
                           duration: exerciseDuration,
                           intervalNotificationTime:
                             exerciseIntervalNotificationTime,
+                          useIntervalTimer,
                           exerciseTypes: exerciseTypes,
                           name: exerciseName,
                           order: Number(exerciseOrder),
@@ -387,16 +393,56 @@ const EditExercise = () => {
               />
             </div>
 
-            <div className="flex flex-col">
-              <label className="mb-1 font-medium dark:text-white">
-                Interval timer:
+            <div className="flex flex-row gap-2">
+              <label
+                className="mb-1 font-medium dark:text-white"
+                htmlFor="interval-timer-switch"
+              >
+                Use interval timer:
               </label>
-              <IntervalTimePicker
-                value={exerciseIntervalNotificationTime || '01:00'}
-                onChange={setExerciseIntervalNotificationTime}
-                borderColor={exerciseCardColor}
-              />
+              <Switch.Root
+                id="interval-timer-switch"
+                checked={useIntervalTimer}
+                onCheckedChange={setUseIntervalTimer}
+                style={
+                  useIntervalTimer
+                    ? { backgroundColor: exerciseCardColor }
+                    : undefined
+                }
+                className={`
+                  relative h-3.5 w-7 cursor-pointer rounded-full border-2 
+                  border-transparent bg-slate-400 outline-none
+                  transition-colors`}
+              >
+                <Switch.Thumb
+                  className={`
+                    block h-3 w-3 translate-x-0 rounded-full bg-white 
+                    shadow-md transition-transform duration-200 
+                    data-[state=checked]:translate-x-3.5`}
+                />
+              </Switch.Root>
             </div>
+
+            <AnimatePresence>
+              {useIntervalTimer && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="-mt-3 flex flex-col"
+                >
+                  <label className="mb-1 font-medium dark:text-white">
+                    Interval timer:
+                  </label>
+                  <IntervalTimePicker
+                    value={exerciseIntervalNotificationTime || '01:00'}
+                    onChange={setExerciseIntervalNotificationTime}
+                    borderColor={exerciseCardColor}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             <div className="xl:w-1/3">
               <h3 className="font-semibold text-gray-800 dark:text-white">

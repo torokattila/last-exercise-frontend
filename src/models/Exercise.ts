@@ -12,6 +12,7 @@ interface Exercise extends EntityBase {
   textColor: string;
   order: number;
   intervalNotificationTime?: string | null;
+  useIntervalTimer?: boolean | null;
 }
 
 export default Exercise;

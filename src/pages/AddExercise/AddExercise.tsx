@@ -6,6 +6,7 @@ import ExerciseType from '../../models/ExerciseType';
 
 import saveOutline from '@iconify/icons-eva/save-outline';
 import { Icon } from '@iconify/react';
+import * as Switch from '@radix-ui/react-switch';
 import useExercise from '../../hooks/useExercise';
 import ExercisePayload from '../../api/payloads/ExercisePayload';
 import ExerciseTypeAccordionCard from '../../components/ExerciseTypeAccordionCard';
@@ -35,6 +36,7 @@ const AddExercise = () => {
     textColor: '#fff',
     duration: '',
     intervalNotificationTime: '01:00',
+    useIntervalTimer: false,
     exerciseTypes: [],
     order: 1,
     userId: Number(user?.id) ?? undefined,
@@ -96,7 +98,7 @@ const AddExercise = () => {
             </h1>
           </div>
 
-          <div className="relative flex w-full flex-col gap-y-4 rounded-t-[40px] bg-white px-5 pb-15 dark:bg-[#1D2228] lg:rounded-none lg:min-h-screen">
+          <div className="relative flex w-full flex-col gap-y-4 rounded-t-[40px] bg-white px-5 pb-15 dark:bg-[#1D2228] lg:min-h-screen lg:rounded-none">
             <div className="fixed top-17 right-3 lg:top-10">
               <button
                 onClick={() => {
@@ -295,18 +297,60 @@ const AddExercise = () => {
               />
             </div>
 
-            <div className="flex flex-col">
-              <label className="mb-1 font-medium dark:text-white">
-                Interval timer:
+            <div className="flex flex-row gap-2">
+              <label
+                className="mb-1 font-medium dark:text-white"
+                htmlFor="interval-timer-switch"
+              >
+                Use interval timer:
               </label>
-              <IntervalTimePicker
-                value={exercise.intervalNotificationTime || '01:00'}
-                onChange={(v) =>
-                  setExercise({ ...exercise, intervalNotificationTime: v })
+              <Switch.Root
+                id="interval-timer-switch"
+                checked={exercise.useIntervalTimer}
+                onCheckedChange={(v) =>
+                  setExercise({ ...exercise, useIntervalTimer: v })
                 }
-                borderColor={exercise.cardColor}
-              />
+                style={
+                  exercise.useIntervalTimer
+                    ? { backgroundColor: exercise.cardColor }
+                    : undefined
+                }
+                className={`
+                  relative h-3.5 w-7 cursor-pointer rounded-full border-2 
+                  border-transparent bg-slate-400 outline-none
+                  transition-colors`}
+              >
+                <Switch.Thumb
+                  className={`
+                    block h-3 w-3 translate-x-0 rounded-full bg-white 
+                    shadow-md transition-transform duration-200 
+                    data-[state=checked]:translate-x-3.5`}
+                />
+              </Switch.Root>
             </div>
+
+            <AnimatePresence>
+              {exercise.useIntervalTimer && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="-mt-3 flex flex-col"
+                >
+                  <label className="mb-1 font-medium dark:text-white">
+                    Interval timer:
+                  </label>
+                  <IntervalTimePicker
+                    value={exercise.intervalNotificationTime || '01:00'}
+                    onChange={(v) =>
+                      setExercise({ ...exercise, intervalNotificationTime: v })
+                    }
+                    borderColor={exercise.cardColor}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             <div className="xl:w-1/3">
               <h3 className="font-semibold text-gray-800 dark:text-white">
