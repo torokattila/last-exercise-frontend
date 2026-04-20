@@ -8,6 +8,7 @@ import pauseCircleOutline from '@iconify/icons-eva/pause-circle-outline';
 import playCircleOutline from '@iconify/icons-eva/play-circle-outline';
 import { Icon } from '@iconify/react';
 import useExercise from '../../hooks/useExercise';
+import { getItem } from '../../lib/storage';
 
 type Props = {
   show: boolean;
@@ -17,6 +18,8 @@ type Props = {
 
 const StopWatch = ({ show, setShowStopWatch, setDuration }: Props) => {
   const { currentExercise } = useExercise();
+  const isDarkMode = getItem('mode') === 'dark';
+  const shouldUseIntervalTimer = currentExercise?.useIntervalTimer;
   const [isStarted, setIsStarted] = useState<boolean>(false);
   const [isPaused, setIsPaused] = useState<boolean>(true);
 
@@ -51,13 +54,13 @@ const StopWatch = ({ show, setShowStopWatch, setDuration }: Props) => {
           className={`
             fixed bottom-14 right-2 z-30 flex w-28 
             flex-row items-center justify-center
-            rounded-3xl border-2 border-white 
-            bg-gray-800 py-3.5 text-3xl text-white shadow-card 
+            rounded-3xl border-[3px] border-[#1D2228] bg-white 
+            py-3.5 text-3xl text-white shadow-card dark:border-white dark:bg-[#1D2228] 
             lg:bottom-10 lg:right-5 lg:py-1 lg:px-12
           `}
         >
           <div
-            className="absolute -top-1.5 -right-1 cursor-pointer rounded-full bg-white shadow-card"
+            className="absolute -top-1.5 -right-1 cursor-pointer rounded-full bg-[#1D2228] shadow-card dark:bg-white"
             onClick={() => {
               onPausePress();
               setShowStopWatch(false);
@@ -65,7 +68,7 @@ const StopWatch = ({ show, setShowStopWatch, setDuration }: Props) => {
           >
             <Icon
               icon={closeCircleFill}
-              className="text-gray-800 transition-all hover:text-blues-2"
+              className="text-white transition-all hover:text-blues-2 dark:text-[#1D2228]"
               fontSize={52}
             />
           </div>
@@ -73,7 +76,13 @@ const StopWatch = ({ show, setShowStopWatch, setDuration }: Props) => {
           <Timer initialTime={0} startImmediately={false}>
             {({ start, pause }: any) => (
               <motion.div className="relative mb-2 flex flex-col items-center justify-center gap-y-2.5">
-                <div className="w-full rounded-full border-4 py-7 px-2 text-left font-semibold">
+                <div
+                  className={`
+                  w-full rounded-full border-4 border-[#1D2228] 
+                  py-7 px-2 text-left font-semibold dark:border-white 
+                  text-[#1D2228] dark:text-white
+                  `}
+                >
                   <Timer.Hours
                     formatValue={(num: number) => {
                       if (num < 10) {
@@ -104,7 +113,7 @@ const StopWatch = ({ show, setShowStopWatch, setDuration }: Props) => {
                     }}
                   />
                 </div>
-                <div className="absolute -bottom-3.5 flex flex-row gap-x-2 bg-gray-800">
+                <div className="absolute -bottom-3.5 flex flex-row gap-x-2 bg-white dark:bg-[#1D2228]">
                   {!isPaused && (
                     <button
                       onClick={() => {
