@@ -209,14 +209,14 @@ const StopWatch = ({ show, setShowStopWatch, setDuration }: Props) => {
                   </div>
 
                   {/* Interval countdown */}
-                  <AnimatePresence>
+                  <AnimatePresence initial={false}>
                     {shouldUseIntervalTimer && intervalTotalSeconds > 0 && (
                       <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
                         transition={{ duration: 0.35 }}
-                        className="flex w-full flex-col items-center overflow-hidden"
+                        className="flex w-full flex-col items-center"
                       >
                         <motion.span
                           animate={
