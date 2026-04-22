@@ -195,6 +195,39 @@ class ApiClient {
     return response.data;
   }
 
+  // Notifications
+  async savePushSubscription(token: string): Promise<void> {
+    await this.client.post(
+      '/notifications/push-subscription',
+      { token },
+      {
+        headers: {
+          access_token: Storage.getItem('access_token') || '',
+        },
+      },
+    );
+  }
+
+  async scheduleNotification(intervalSeconds: number, exerciseName: string): Promise<void> {
+    await this.client.post(
+      '/notifications/schedule',
+      { intervalSeconds, exerciseName },
+      {
+        headers: {
+          access_token: Storage.getItem('access_token') || '',
+        },
+      },
+    );
+  }
+
+  async cancelNotification(): Promise<void> {
+    await this.client.delete('/notifications/schedule', {
+      headers: {
+        access_token: Storage.getItem('access_token') || '',
+      },
+    });
+  }
+
   // Exercise type
   async deleteExerciseType(exerciseTypeId: number): Promise<ExerciseType> {
     const response: AxiosResponse = await this.client.delete<ExerciseType>(

@@ -7,6 +7,7 @@ import closeCircleFill from '@iconify/icons-eva/close-circle-fill';
 import pauseCircleOutline from '@iconify/icons-eva/pause-circle-outline';
 import playCircleOutline from '@iconify/icons-eva/play-circle-outline';
 import { Icon } from '@iconify/react';
+import useApi from '../../hooks/useApi';
 import useExercise from '../../hooks/useExercise';
 import { getItem } from '../../lib/storage';
 
@@ -59,6 +60,7 @@ const playNotificationSound = () => {
 
 const StopWatch = ({ show, setShowStopWatch, setDuration }: Props) => {
   const { currentExercise } = useExercise();
+  const apiClient = useApi();
   const shouldUseIntervalTimer = currentExercise?.useIntervalTimer;
   const intervalTotalSeconds = parseIntervalToSeconds(
     currentExercise?.intervalNotificationTime ?? '00:00',
@@ -68,6 +70,7 @@ const StopWatch = ({ show, setShowStopWatch, setDuration }: Props) => {
   const [isPaused, setIsPaused] = useState<boolean>(true);
   const [countdown, setCountdown] = useState<number>(intervalTotalSeconds);
   const [flash, setFlash] = useState<boolean>(false);
+  const [cycleCount, setCycleCount] = useState<number>(0);
 
   const intervalTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const intervalTotalSecondsRef = useRef(intervalTotalSeconds);
@@ -91,6 +94,7 @@ const StopWatch = ({ show, setShowStopWatch, setDuration }: Props) => {
             playNotificationSound();
             setFlash(true);
             setTimeout(() => setFlash(false), 700);
+            setCycleCount((c) => c + 1);
             return intervalTotalSecondsRef.current;
           }
           return prev - 1;
@@ -105,6 +109,20 @@ const StopWatch = ({ show, setShowStopWatch, setDuration }: Props) => {
       }
     };
   }, [isStarted, isPaused, shouldUseIntervalTimer, intervalTotalSeconds]);
+
+  // Schedule / cancel backend push notification in sync with the timer state
+  useEffect(() => {
+    const shouldSchedule =
+      isStarted && !isPaused && shouldUseIntervalTimer && intervalTotalSeconds > 0;
+
+    if (shouldSchedule) {
+      apiClient
+        .scheduleNotification(intervalTotalSeconds, currentExercise?.name ?? 'Exercise')
+        .catch(() => {});
+    } else if (!isStarted || isPaused) {
+      apiClient.cancelNotification().catch(() => {});
+    }
+  }, [isStarted, isPaused, shouldUseIntervalTimer, intervalTotalSeconds, cycleCount, apiClient, currentExercise?.name]);
 
   const onStartPress = () => {
     setIsStarted(true);
