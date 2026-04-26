@@ -9,10 +9,11 @@ const messaging = firebase.messaging();
 // Handle FCM push notifications when the app is in the background
 messaging.onBackgroundMessage((payload) => {
   const title = payload.notification?.title ?? 'Exercise reminder!';
+  const iconUrl = self.location.origin + '/workout.png';
   const options = {
     body: payload.notification?.body ?? "Time to exercise!",
-    icon: payload.notification?.icon ?? './logo192.png',
-    badge: './logo192.png',
+    icon: payload.notification?.icon ?? iconUrl,
+    badge: iconUrl,
     tag: 'interval-timer',
     renotify: true,
     silent: false,
@@ -25,10 +26,11 @@ self.addEventListener('activate', (event) => event.waitUntil(self.clients.claim(
 
 self.addEventListener('message', (event) => {
   if (event.data?.type === 'INTERVAL_NOTIFICATION') {
+    const iconUrl = self.location.origin + '/workout.png';
     self.registration.showNotification(event.data.title ?? 'Interval reached!', {
       body: event.data.body ?? "Time's up! Keep it up 💪",
-      icon: './logo192.png',
-      badge: './logo192.png',
+      icon: iconUrl,
+      badge: iconUrl,
       tag: 'interval-timer',
       renotify: true,
       silent: false,
