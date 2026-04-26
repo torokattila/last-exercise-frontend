@@ -14,6 +14,7 @@ import logOutFill from '@iconify/icons-eva/log-out-fill';
 import personAddOutline from '@iconify/icons-eva/person-add-outline';
 import personOutline from '@iconify/icons-eva/person-outline';
 import shieldOutline from '@iconify/icons-eva/shield-outline';
+import musicOutline from '@iconify/icons-eva/music-outline';
 import { Icon } from '@iconify/react';
 import classNames from 'classnames';
 import useLogout from '../../hooks/useLogout';
@@ -49,6 +50,9 @@ const Profile = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(
     getItem('mode') === 'dark',
   );
+  const [isPlaySound, setIsPlaySound] = useState<boolean>(
+    getItem('playSound') === 'true',
+  );
   const [isBaseCredentialsOpen, setIsBaseCredentialsOpen] = useState(false);
   const [isPasswordChangeOpen, setIsPasswordChangeOpen] = useState(false);
   const [isDangerZoneOpen, setIsDangerZoneOpen] = useState(false);
@@ -64,6 +68,14 @@ const Profile = () => {
       setItem('mode', 'light');
     }
   }, [isDarkMode]);
+
+  useEffect(() => {
+    if (isPlaySound) {
+      setItem('playSound', 'true');
+    } else {
+      setItem('playSound', 'false');
+    }
+  }, [isPlaySound]);
 
   return (
     <div
@@ -376,7 +388,13 @@ const Profile = () => {
         </AnimatePresence>
       </div>
 
-      <div className="mt-4 flex w-full items-center justify-between rounded-2xl bg-gradient-to-r from-slate-600 to-slate-500 p-3 shadow-card lg:w-1/2">
+      <div
+        className={`
+        mt-4 flex w-full items-center justify-between 
+        rounded-2xl bg-gradient-to-r from-slate-700 to-slate-200 
+        p-3 shadow-card lg:w-1/2
+      `}
+      >
         <label
           className="text-xl font-semibold text-white"
           htmlFor="dark-mode-switch"
@@ -387,6 +405,40 @@ const Profile = () => {
           id="dark-mode-switch"
           checked={isDarkMode}
           onCheckedChange={setIsDarkMode}
+          className={`
+            relative h-3.5 w-7 cursor-pointer rounded-full border-2 
+            border-transparent bg-slate-400 outline-none
+            transition-colors data-[state=checked]:bg-[#1490d3]`}
+        >
+          <Switch.Thumb
+            className={`
+              block h-3 w-3 translate-x-0 rounded-full bg-white 
+              shadow-md transition-transform duration-200 
+              data-[state=checked]:translate-x-3.5`}
+          />
+        </Switch.Root>
+      </div>
+
+      <div
+        className={`
+          mt-4 flex w-full items-center justify-between 
+          rounded-2xl bg-gradient-to-r from-purple-600 to-pink-500 
+          p-3 shadow-card lg:w-1/2
+        `}
+      >
+        <div className="flex items-center gap-x-2">
+          <Icon icon={musicOutline} color="white" fontSize={35} />
+          <label
+            className="text-xl font-semibold text-white"
+            htmlFor="sound-switch"
+          >
+            Sound
+          </label>
+        </div>
+        <Switch.Root
+          id="sound-switch"
+          checked={isPlaySound}
+          onCheckedChange={setIsPlaySound}
           className={`
             relative h-3.5 w-7 cursor-pointer rounded-full border-2 
             border-transparent bg-slate-400 outline-none
