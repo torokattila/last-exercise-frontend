@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { motion } from 'framer-motion';
 // @ts-ignore
 import 'swiper/css';
 // @ts-ignore
@@ -9,6 +10,13 @@ import AddExerciseButton from '../../components/shared/AddExerciseButton';
 import WeeklyWorkoutChart from '../../components/WeeklyWorkoutChart/WeeklyWorkoutChart';
 import useHome from '../../hooks/useHome';
 import Exercise from '../../models/Exercise';
+
+const sectionInitial = { opacity: 0, x: -40 };
+const sectionAnimate = { opacity: 1, x: 0 };
+const sectionTransition = (index: number) => ({
+  duration: 0.5,
+  delay: index * 0.15,
+});
 
 const Home = (): JSX.Element => {
   const { user } = useHome();
@@ -33,29 +41,50 @@ const Home = (): JSX.Element => {
 
   return (
     <div className="flex h-screen w-full flex-col overflow-y-auto bg-white px-4 pb-16 dark:bg-[#1D2228] lg:pb-7">
-      <div className="mt-5 lg:mt-7">
+      <motion.div
+        className="mt-5 lg:mt-7"
+        initial={sectionInitial}
+        animate={sectionAnimate}
+        transition={sectionTransition(0)}
+      >
         <p className="mt-1 text-gray-500 dark:text-gray-400">Welcome back</p>
         <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
           {user?.firstname}! 👋
         </h1>
-      </div>
+      </motion.div>
 
       {user?.lastExercise && (
-        <div className="mt-4 lg:mt-7">
-          <h1 className="text-xl font-bold text-gray-800 dark:text-white uppercase">
+        <motion.div
+          className="mt-4 lg:mt-7"
+          initial={sectionInitial}
+          animate={sectionAnimate}
+          transition={sectionTransition(1)}
+        >
+          <h1 className="text-xl font-bold uppercase text-gray-800 dark:text-white">
             Your last workout:
           </h1>
           <div className="mt-2">
             <ExerciseCard exercise={user?.lastExercise} isLastExercise />
           </div>
-        </div>
+        </motion.div>
       )}
 
-      <WeeklyWorkoutChart exerciseHistory={user?.exerciseHistory} />
+      <motion.div
+        initial={sectionInitial}
+        animate={sectionAnimate}
+        transition={sectionTransition(2)}
+      >
+        <WeeklyWorkoutChart exerciseHistory={user?.exerciseHistory} />
+      </motion.div>
 
       {user?.exercises && user?.exercises.length > 0 ? (
-        <div className="mt-4 flex flex-col">
-          <h2 className="text-xl font-bold text-gray-800 dark:text-white uppercase">
+        <motion.div
+          className="mt-4 flex flex-col"
+          initial={sectionInitial}
+          animate={sectionAnimate}
+          transition={sectionTransition(3)}
+        >
+          <h2 className="text-xl font-bold uppercase text-gray-800 dark:text-white">
             Your workouts:
           </h2>
           <div className="w-full">
@@ -83,7 +112,7 @@ const Home = (): JSX.Element => {
               ))}
             </Swiper>
           </div>
-        </div>
+        </motion.div>
       ) : null}
 
       <div className="absolute bottom-9 right-10 z-20 hidden lg:flex">

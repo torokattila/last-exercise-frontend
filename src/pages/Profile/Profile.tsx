@@ -19,6 +19,13 @@ import { Icon } from '@iconify/react';
 import classNames from 'classnames';
 import useLogout from '../../hooks/useLogout';
 
+const sectionInitial = { opacity: 0, x: -40 };
+const sectionAnimate = { opacity: 1, x: 0 };
+const sectionTransition = (index: number) => ({
+  duration: 0.5,
+  delay: index * 0.15,
+});
+
 const Profile = () => {
   const {
     email,
@@ -82,13 +89,23 @@ const Profile = () => {
       id="profile-page"
       className="flex h-screen w-full flex-col overflow-y-auto bg-white px-5 !pb-16 dark:bg-[#1D2228] lg:pb-7"
     >
-      <div className="mt-5 lg:mt-7">
+      <motion.div
+        className="mt-5 lg:mt-7"
+        initial={sectionInitial}
+        animate={sectionAnimate}
+        transition={sectionTransition(0)}
+      >
         <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
           Edit Profile <span className="ml-1">✏️</span>
         </h1>
-      </div>
+      </motion.div>
 
-      <div className="mt-4 flex w-full flex-col rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-500 shadow-card lg:mt-10 lg:w-1/2">
+      <motion.div
+        className="mt-4 flex w-full flex-col rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-500 shadow-card lg:mt-10 lg:w-1/2"
+        initial={sectionInitial}
+        animate={sectionAnimate}
+        transition={sectionTransition(1)}
+      >
         <button
           type="button"
           onClick={() => setIsBaseCredentialsOpen((v) => !v)}
@@ -199,9 +216,14 @@ const Profile = () => {
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </motion.div>
 
-      <div className="mt-4 flex w-full flex-col rounded-2xl bg-gradient-to-r from-cyan-600 to-cyan-500 shadow-card lg:w-1/2">
+      <motion.div
+        className="mt-4 flex w-full flex-col rounded-2xl bg-gradient-to-r from-cyan-600 to-cyan-500 shadow-card lg:w-1/2"
+        initial={sectionInitial}
+        animate={sectionAnimate}
+        transition={sectionTransition(2)}
+      >
         <button
           type="button"
           onClick={() => setIsPasswordChangeOpen((v) => !v)}
@@ -347,9 +369,14 @@ const Profile = () => {
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </motion.div>
 
-      <div className="mt-4 flex w-full flex-col rounded-2xl bg-gradient-to-r from-red-500 to-orange-700 shadow-card lg:w-1/2">
+      <motion.div
+        className="mt-4 flex w-full flex-col rounded-2xl bg-gradient-to-r from-red-500 to-orange-700 shadow-card lg:w-1/2"
+        initial={sectionInitial}
+        animate={sectionAnimate}
+        transition={sectionTransition(3)}
+      >
         <button
           type="button"
           onClick={() => setIsDangerZoneOpen((v) => !v)}
@@ -386,14 +413,17 @@ const Profile = () => {
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </motion.div>
 
-      <div
+      <motion.div
         className={`
         mt-4 flex w-full items-center justify-between 
         rounded-2xl bg-gradient-to-r from-slate-700 to-slate-200 
         p-3 shadow-card lg:w-1/2
       `}
+        initial={sectionInitial}
+        animate={sectionAnimate}
+        transition={sectionTransition(4)}
       >
         <label
           className="text-xl font-semibold text-white"
@@ -417,14 +447,17 @@ const Profile = () => {
               data-[state=checked]:translate-x-3.5`}
           />
         </Switch.Root>
-      </div>
+      </motion.div>
 
-      <div
+      <motion.div
         className={`
           mt-4 flex w-full items-center justify-between 
           rounded-2xl bg-gradient-to-r from-purple-600 to-pink-500 
           p-3 shadow-card lg:w-1/2
         `}
+        initial={sectionInitial}
+        animate={sectionAnimate}
+        transition={sectionTransition(5)}
       >
         <div className="flex items-center gap-x-2">
           <Icon icon={musicOutline} color="white" fontSize={35} />
@@ -451,16 +484,19 @@ const Profile = () => {
               data-[state=checked]:translate-x-3.5`}
           />
         </Switch.Root>
-      </div>
+      </motion.div>
 
-      <button
+      <motion.button
         type="button"
         className="mt-4 flex items-center justify-center gap-2 rounded-2xl bg-[#1490d3] px-3 py-2 text-center text-xl font-semibold uppercase text-white"
         onClick={handleLogoutConfirm}
+        initial={sectionInitial}
+        animate={sectionAnimate}
+        transition={sectionTransition(5)}
       >
         <span>Log out</span>
         <Icon icon={logOutFill} fontSize={30} />
-      </button>
+      </motion.button>
     </div>
   );
 };

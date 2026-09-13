@@ -1,4 +1,5 @@
 import close from '@iconify/icons-eva/close-fill';
+import { motion } from 'framer-motion';
 import trash2Fill from '@iconify/icons-eva/trash-2-fill';
 import { Icon } from '@iconify/react';
 import {
@@ -63,6 +64,13 @@ const eventStyleGetter = (
   };
 };
 
+const popInitial = { opacity: 0, y: 40 };
+const popAnimate = { opacity: 1, y: 0 };
+const popTransition = (index: number) => ({
+  duration: 0.5,
+  delay: index * 0.15,
+});
+
 const CalendarPage = () => {
   const isDarkMode = getItem('mode') === 'dark';
   const { user, refetchUser } = useHome();
@@ -110,7 +118,10 @@ const CalendarPage = () => {
     );
   }, [user?.exerciseHistory]);
 
-  const deleteEvent = async (exerciseId: number, date: string): Promise<boolean> => {
+  const deleteEvent = async (
+    exerciseId: number,
+    date: string,
+  ): Promise<boolean> => {
     try {
       await apiClient.deleteFromHistory(Number(user?.id), exerciseId, date);
 
@@ -200,7 +211,12 @@ const CalendarPage = () => {
                   />
                 </button>
                 <div
-                  onClick={() => handleDeleteEvent(event.id, format(event.start, 'yyyy-MM-dd'))}
+                  onClick={() =>
+                    handleDeleteEvent(
+                      event.id,
+                      format(event.start, 'yyyy-MM-dd'),
+                    )
+                  }
                   className="cursor-pointer self-end rounded-full bg-red-700 p-2 shadow-card transition-all hover:bg-red-800"
                 >
                   <Icon icon={trash2Fill} className="text-xl text-white" />
@@ -222,28 +238,41 @@ const CalendarPage = () => {
     <div className="flex-container flex h-screen flex-col items-center justify-center bg-gray-100 dark:bg-[#1D2228]">
       {/* Cards Section */}
       <div className="cards mb-5 -mt-[20%] flex flex-row gap-4">
-        <div className="card flex-1 rounded-3xl bg-white p-3 shadow-md dark:bg-[#2A2E37]">
+        <motion.div
+          className="card flex-1 rounded-3xl bg-white p-3 shadow-md dark:bg-[#2A2E37]"
+          initial={popInitial}
+          animate={popAnimate}
+          transition={popTransition(0)}
+        >
           <h2 className="text-4xl font-semibold text-gray-800 dark:text-white">
             {workoutsThisWeek}
           </h2>
           <p className="text-md mt-1 font-bold text-gray-600 dark:text-gray-300">
             Workouts this week
           </p>
-        </div>
-        <div className="card flex-1 rounded-3xl bg-white p-3 shadow-md dark:bg-[#2A2E37]">
+        </motion.div>
+        <motion.div
+          className="card flex-1 rounded-3xl bg-white p-3 shadow-md dark:bg-[#2A2E37]"
+          initial={popInitial}
+          animate={popAnimate}
+          transition={popTransition(1)}
+        >
           <h2 className="text-4xl font-semibold text-gray-800 dark:text-white">
             {workoutsThisMonth}
           </h2>
           <p className="text-md mt-1 font-bold text-gray-600 dark:text-gray-300">
             Workouts this month
           </p>
-        </div>
+        </motion.div>
       </div>
 
-      <div
+      <motion.div
         className={
           'h-[58vh] w-full max-w-4xl justify-center overflow-x-auto rounded-3xl bg-white shadow-lg dark:bg-[#2A2E37]'
         }
+        initial={popInitial}
+        animate={popAnimate}
+        transition={popTransition(2)}
       >
         <style>{`
           .rbc-day-bg {
@@ -266,7 +295,7 @@ const CalendarPage = () => {
             toolbar: CustomToolbar,
           }}
         />
-      </div>
+      </motion.div>
     </div>
   );
 };
