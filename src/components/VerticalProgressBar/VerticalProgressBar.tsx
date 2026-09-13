@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import successTick from '@iconify/icons-eva/checkmark-circle-2-fill';
 import { Icon } from '@iconify/react';
 import { getItem } from '../../lib/storage';
@@ -12,7 +13,13 @@ const VerticalProgressBar = ({ progress, color }: Props) => {
   const isProgressFull = progress === 100;
 
   return (
-    <div className="fixed left-1.25 top-1/2 z-50 -translate-y-1/2 lg:right-5">
+    <motion.div
+      className="fixed left-1.25 top-1/2 z-50 lg:right-5"
+      initial={{ scale: 0, y: '-50%' }}
+      animate={{ scale: 1, y: '-50%' }}
+      exit={{ scale: 0, y: '-50%' }}
+      transition={{ duration: 0.5, type: 'spring' }}
+    >
       <div
         className={`
           flex h-[50vh] flex-col
@@ -45,7 +52,7 @@ const VerticalProgressBar = ({ progress, color }: Props) => {
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

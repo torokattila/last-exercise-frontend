@@ -153,7 +153,7 @@ const StopWatch = ({ show, setShowStopWatch, setDuration }: Props) => {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           exit={{ scale: 0 }}
-          transition={{ duration: 0.4, type: 'spring' }}
+          transition={{ duration: 0.5, type: 'spring' }}
           className={`
             fixed bottom-14 right-2 z-30 flex w-28 
             flex-row items-center justify-center

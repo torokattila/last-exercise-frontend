@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo, useState } from 'react';
+import { motion } from 'framer-motion';
 import { Icon } from '@iconify/react';
 import checkmarkCircle from '@iconify/icons-eva/checkmark-fill';
 import ExerciseTypeCard from '../../components/ExerciseTypeCard';
@@ -8,6 +9,13 @@ import StopWatch from '../../components/StopWatch';
 import useExercise from '../../hooks/useExercise';
 import { getItem } from '../../lib/storage';
 import VerticalProgressBar from '../../components/VerticalProgressBar';
+
+const cardInitial = { opacity: 0, y: 40 };
+const cardAnimate = { opacity: 1, y: 0 };
+const cardTransition = (index: number) => ({
+  duration: 0.5,
+  delay: index * 0.15,
+});
 
 const Exercise = () => {
   const { currentExercise, handleFinishExercise, sortedExerciseTypes } =
@@ -32,14 +40,14 @@ const Exercise = () => {
     window.addEventListener('storage', handleStorageChange);
     window.addEventListener(
       'localStorageUpdated',
-      handleCustomStorageChange as EventListener
+      handleCustomStorageChange as EventListener,
     );
 
     return () => {
       window.removeEventListener('storage', handleStorageChange);
       window.removeEventListener(
         'localStorageUpdated',
-        handleCustomStorageChange as EventListener
+        handleCustomStorageChange as EventListener,
       );
     };
   }, []);
@@ -84,13 +92,19 @@ const Exercise = () => {
           </div>
 
           <div className="relative flex h-screen flex-col lg:pb-8">
-            {sortedExerciseTypes.map((type) => (
-              <div key={type.id} className="mt-3">
+            {sortedExerciseTypes.map((type, index) => (
+              <motion.div
+                key={type.id}
+                className="mt-3"
+                initial={cardInitial}
+                animate={cardAnimate}
+                transition={cardTransition(index)}
+              >
                 <h1 className="text-lg font-semibold text-gray-800 dark:text-white">
                   {type.name}
                 </h1>
                 <ExerciseTypeCard key={type.id} exerciseType={type} />
-              </div>
+              </motion.div>
             ))}
 
             <div className="mt-10 flex flex-row items-center justify-center pb-7">
@@ -103,7 +117,7 @@ const Exercise = () => {
                 onClick={() =>
                   handleFinishExercise(
                     Number(currentExercise?.id) ?? null,
-                    duration
+                    duration,
                   )
                 }
               >
@@ -136,10 +150,15 @@ const Exercise = () => {
           </div>
 
           <div className="relative flex h-full flex-col justify-center rounded-t-[40px] bg-white pb-17 dark:bg-[#1D2228]">
-            {sortedExerciseTypes.map((type) => (
-              <div key={type.id}>
+            {sortedExerciseTypes.map((type, index) => (
+              <motion.div
+                key={type.id}
+                initial={cardInitial}
+                animate={cardAnimate}
+                transition={cardTransition(index)}
+              >
                 <ExerciseTypeCard key={type.id} exerciseType={type} />
-              </div>
+              </motion.div>
             ))}
             <div className="mt-5 flex flex-row items-center justify-center">
               <button
@@ -151,7 +170,7 @@ const Exercise = () => {
                 onClick={() =>
                   handleFinishExercise(
                     Number(currentExercise?.id) ?? null,
-                    duration
+                    duration,
                   )
                 }
               >
